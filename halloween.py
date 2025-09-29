@@ -7,7 +7,6 @@ import random
 import datetime
 import os
 from dotenv import load_dotenv
-import difflib
 import asyncio
 
 # -------------------------------
@@ -20,9 +19,10 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # CONFIG
 # -------------------------------
 #--- booster ch: 1420601193222111233
-TARGET_CHANNEL_IDS = [1420560553008697474]  # multiple channels
+TARGET_CHANNEL_IDS = [1420560553008697474, 1420601193222111233]  # multiple channels
 COMMAND_PREFIX = "!"
-COOLDOWN_SECONDS = 30 * 24 * 60 * 60  # 30 days in seconds
+COOLDOWN_SECONDS = 30 * 24 * 60 * 60  # 30 days in seconds for !open
+TRICK_COOLDOWN_SECONDS = 30 * 60      # 30 minutes in seconds for !trickortreat
 DATA_FILE = "loot_data.json"
 LOOT_EMOJIS = {
     "Tickets": "🎟️",
@@ -33,7 +33,7 @@ LOOT_EMOJIS = {
     "Unopened Dye": "🎨"
 }
 # User IDs who bypass cooldown
-COOLDOWN_BYPASS_USERS = {296181275344109568, 1370076515429253264, 547733449818243084}
+COOLDOWN_BYPASS_USERS = {296181275344109568, 1370076515429253264}
 
 # Loot table with chances (%) and reward ranges
 LOOT_TABLE = [
@@ -58,8 +58,9 @@ bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents, help_command=
 # -------------------------------
 # DATA STORAGE
 # -------------------------------
-user_cooldowns = {}  # user_id: datetime (UTC aware)
-user_loot_history = {}  # user_id: list of (item, value, timestamp)
+user_cooldowns = {}      # user_id: datetime (UTC aware) for !open
+trick_cooldowns = {}     # user_id: datetime (UTC aware) for !trickortreat
+user_loot_history = {}   # user_id: list of (item, value, timestamp)
 
 def load_data():
     global user_cooldowns, user_loot_history
@@ -67,7 +68,6 @@ def load_data():
         try:
             with open(DATA_FILE, "r") as f:
                 raw_data = f.read()
-                # Attempt to parse JSON
                 data = json.loads(raw_data)
                 
             user_cooldowns = {
@@ -85,7 +85,6 @@ def load_data():
         except json.JSONDecodeError as e:
             print(f"[WARNING] loot_data.json is corrupted: {e}. Attempting partial recovery...")
             try:
-                # Try to extract first valid JSON object
                 recovered_data = None
                 for line in raw_data.splitlines():
                     try:
@@ -172,120 +171,180 @@ async def notify_offline():
 # COMMANDS
 # -------------------------------
 
-def find_member_by_name_or_id(guild, query: str):
-    query_lower = query.lower()
-
-    # --- Check if mention ---
-    if query.startswith("<@") and query.endswith(">"):
-        try:
-            user_id = int(query.strip("<@!>"))
-            return guild.get_member(user_id)
-        except ValueError:
-            return None
-
-    # --- Check if numeric ID ---
-    if query.isdigit():
-        return guild.get_member(int(query))
-
-    # --- Strict partial match (case-insensitive) ---
-    for member in guild.members:
-        if query_lower in member.display_name.lower() or query_lower in member.name.lower():
-            return member
-
-    # No fuzzy matching — return None if no exact partial match found
-    return None
-
 @bot.command(name="open")
 async def open_lootbox(ctx):
     try:
         if ctx.channel.id not in TARGET_CHANNEL_IDS:
             return
 
-        user_id = ctx.author.id
-
-        # Check for Nitro boost / cooldown bypass
-        if not ctx.author.premium_since and user_id not in COOLDOWN_BYPASS_USERS:
-            await ctx.send("You must be boosting to open a lootbox.")
+        # Check if user is a Nitro Booster
+        if not ctx.author.premium_since:
+            await ctx.send(f"{ctx.author.mention}, only **server boosters** can use `!open` 💖")
             return
 
-        # Cooldown check
+        user_id = ctx.author.id
         now = datetime.datetime.now(datetime.timezone.utc)
+
+
+        # --- Cooldown check ---
         if user_id not in COOLDOWN_BYPASS_USERS and user_id in user_cooldowns:
             last_open = user_cooldowns[user_id]
             elapsed = (now - last_open).total_seconds()
             if elapsed < COOLDOWN_SECONDS:
-                await ctx.send("You are on cooldown!")
+                next_time = last_open + datetime.timedelta(seconds=COOLDOWN_SECONDS)
+                unix_time = int(next_time.timestamp())
+                formatted_time = f"<t:{unix_time}:f>"
+
+                cd_embed = discord.Embed(
+                    description=f"{ctx.author.mention}, you must wait until {formatted_time} to open another lootbox!",
+                    color=0xFFC0CB
+                )
+                cd_embed.set_image(url="https://media.giphy.com/media/PivShcAVhKARq/giphy.gif")
+                await ctx.send(embed=cd_embed)
                 return
 
-        # Roll loot
+        # --- Roll loot (the actual prize) ---
         item, value = roll_loot()
         emoji = LOOT_EMOJIS.get(item, "🎁")
-        user_cooldowns[user_id] = now
 
-        # STEP 1: Praying embed
-        praying_embed = discord.Embed(
-            title="🌸 Praying ♡",
-            description=f"{random.choice(list(LOOT_EMOJIS.values()))}   "
-                        f"{random.choice(list(LOOT_EMOJIS.values()))}   "
-                        f"{random.choice(list(LOOT_EMOJIS.values()))}",
-            color=0xFFC5D3
+        # Update cooldown + history
+        if user_id not in COOLDOWN_BYPASS_USERS:
+            user_cooldowns[user_id] = now
+        if user_id not in user_loot_history:
+            user_loot_history[user_id] = []
+        user_loot_history[user_id].append((item, value, now))
+
+        # Save asynchronously
+        asyncio.create_task(asyncio.to_thread(save_data))
+
+        # --- Initial embed ---
+        spin_items = list(LOOT_EMOJIS.values())
+        embed = discord.Embed(
+            title="<a:kawaiiStarsSparkle:1420989584895905903>Praying ♡",
+            description="Spinning...",
+            color=0xFFC5D3,
         )
-        message = await ctx.send(embed=praying_embed)
+        slot_message = await ctx.send(embed=embed)
 
-        # Small pause before spin starts
-        await asyncio.sleep(0.6)
-
-        # STEP 2: Spinning animation
-        spin_embed = discord.Embed(
-            title="🎰 Spinning...",
-            description="| 🎲   💎   💰 |",
-            color=0xFFC5D3
-        )
-        await message.edit(embed=spin_embed)
-
+        # --- Quick animation ---
         for _ in range(3):
-            reels = [random.choice(list(LOOT_EMOJIS.values())) for _ in range(3)]
-            spin_embed.description = f"| {reels[0]}   {reels[1]}   {reels[2]} |"
-            await message.edit(embed=spin_embed)
-            await asyncio.sleep(0.25)
+            reels = [random.choice(spin_items) for _ in range(3)]
+            embed.description = f"<a:PinkDice:1420985419704700938> | {reels[0]}   {reels[1]}   {reels[2]}"
+            await slot_message.edit(embed=embed)
+            await asyncio.sleep(0.08)
 
-        # STEP 3: Prize result
-        result_embed = discord.Embed(
-            title="🎉 Congrats!",
-            description=f"{ctx.author.mention}, you won **{value} {item}** {emoji}",
-            color=0xFFC5D3
+        # --- Final prize (AFTER loop finishes) ---
+        embed.description = f"<a:PinkDice:1420985419704700938> | {emoji}   {emoji}   {emoji}"
+        await slot_message.edit(embed=embed)
+
+        # --- Congrats embed ---
+        gif_url = "https://cdn.discordapp.com/attachments/1321372597572599869/1420574912245923870/IMG_9434.gif"
+        final_embed = discord.Embed(
+            title="**Congrats** <:3z_vdayboxP2U:1420544327817629786>",
+            description=(
+                f"**You've won {value} {item} <a:pinkhearts:1420576070138073149>** \n\n"
+                "-# Please open a ticket in <#1412934283613700136> to claim. \n\n"
+                "-# *Open another chest in 30 days!* <a:pinkhearts:1420576070138073149>"
+            ),
+            color=0xFFC5D3,
         )
+        final_embed.set_thumbnail(url=gif_url)
 
-        # STEP 4: Attach Double or Nothing view
-        view = DoubleOrNothingView(ctx, user_id, item, value, now)
-        view.interaction_message = message
-        await message.edit(embed=result_embed, view=view)
-
-        # Start timer for Double or Nothing
-        asyncio.create_task(view.start_timer())
+        # small pause just for effect
+        await asyncio.sleep(0.3)
+        await slot_message.edit(embed=final_embed)
 
     except Exception:
         import traceback
         traceback.print_exc()
 
+#----------------------------------------------
+# Halloween EVENT for Boosters and Non-Boosters
+#----------------------------------------------
+@bot.command(name="trickortreat")
+async def trick_or_treat(ctx):
+    try:
+        if ctx.channel.id not in TARGET_CHANNEL_IDS:
+            return
+
+        user_id = ctx.author.id
+        now = datetime.datetime.now(datetime.timezone.utc)
+
+        # --- Cooldown check ---
+        if user_id not in COOLDOWN_BYPASS_USERS and user_id in trick_cooldowns:
+            last_open = trick_cooldowns[user_id]
+            elapsed = (now - last_open).total_seconds()
+            if elapsed < TRICK_COOLDOWN_SECONDS:
+                next_time = last_open + datetime.timedelta(seconds=TRICK_COOLDOWN_SECONDS)
+                unix_time = int(next_time.timestamp())
+                formatted_time = f"<t:{unix_time}:f>"
+
+                cd_embed = discord.Embed(
+                    description=f"{ctx.author.mention}, you must wait until {formatted_time} to go trick-or-treating again!",
+                    color=0xFF7518  # Pumpkin orange 🎃
+                )
+                cd_embed.set_image(url="https://media.giphy.com/media/T8Dfbp7amklQk/giphy.gif")
+                await ctx.send(embed=cd_embed)
+                return
+
+        # --- Roll Halloween candy ---
+        candy_amount = random.randint(1, 25)
+        candy_name = "Halloween Candy 🍬"
+
+        # Update cooldown + history
+        if user_id not in COOLDOWN_BYPASS_USERS:
+            trick_cooldowns[user_id] = now
+        if user_id not in user_loot_history:
+            user_loot_history[user_id] = []
+        user_loot_history[user_id].append((candy_name, candy_amount, now))
+
+        asyncio.create_task(asyncio.to_thread(save_data))
+
+        # --- Result embed ---
+        embed = discord.Embed(
+            title="🎃 Trick or Treat!",
+            description=f"{ctx.author.mention}, you got **{candy_amount} {candy_name}**!",
+            color=0xFF7518
+        )
+        embed.set_thumbnail(url="https://media.giphy.com/media/WyAFMfpFSB6Bq/giphy.gif")  # Pusheen Halloween GIF
+        await ctx.send(embed=embed)
+
+    except Exception:
+        import traceback
+        traceback.print_exc()
+
+@bot.command(name="candy")
+async def candy_total(ctx):
+    """Show total Halloween Candy collected over time."""
+    user_id = ctx.author.id
+    total_candy = 0
+
+    if user_id in user_loot_history:
+        total_candy = sum(value for item, value, _ in user_loot_history[user_id] if "Halloween Candy" in item)
+
+    embed = discord.Embed(
+        title="🍬 Halloween Candy Collected",
+        description=f"{ctx.author.mention}, you have collected a total of **{total_candy} Halloween Candy 🍬** so far!",
+        color=0xFF69B4
+    )
+    embed.set_thumbnail(url="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHhuOWxrajN6dWx6djFodDg0MDN4OHJtZnp4YW1sbmdwZHpqcjUyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8RppzuEQJ40BpxDL2Y/giphy.gif")
+    await ctx.send(embed=embed)
 
 @bot.command(name="history")
-async def loot_history(ctx, *, query: str = None):
-    # Figure out target
-    if query:
-        target = find_member_by_name_or_id(ctx.guild, query)
-        if not target:
-            await ctx.send(f"❌ Could not find a user matching '{query}'.")
-            return
-    else:
-        target = ctx.author
-
-    user_id = target.id
+async def loot_history(ctx):
+    user_id = ctx.author.id
     if user_id not in user_loot_history or len(user_loot_history[user_id]) == 0:
-        await ctx.send(f"{target.mention} hasn't opened any lootboxes yet!")
+        await ctx.send(f"{ctx.author.mention}, you haven't opened any lootboxes yet!")
         return
 
-    history = list(reversed(user_loot_history[user_id]))
+    # Filter out Halloween Candy 🍬 from history
+    filtered_history = [entry for entry in user_loot_history[user_id] if "Halloween Candy" not in entry[0]]
+
+    if len(filtered_history) == 0:
+        await ctx.send(f"{ctx.author.mention}, you haven't opened any **booster lootboxes** yet!")
+        return
+
+    history = list(reversed(filtered_history))
     items_per_page = 5
     total_pages = (len(history) + items_per_page - 1) // items_per_page
     thumbnail_url = "https://cdn.discordapp.com/attachments/1321372597572599869/1420595192150622409/IMG_9439.gif"
@@ -300,12 +359,10 @@ async def loot_history(ctx, *, query: str = None):
             end_index = start_index + items_per_page
             page_items = history[start_index:end_index]
 
-            lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {value} {item}"
-                     for item, value, ts in page_items]
+            lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {value} {item}" for item, value, ts in page_items]
 
             embed = discord.Embed(
-                title=f"{target.display_name}'s Loot History "
-                      f"(Page {self.current_page + 1}/{total_pages})",
+                title=f"<:hnote1:1420592325817663570> {ctx.author.display_name}'s Loot History (Page {self.current_page + 1}/{total_pages})",
                 description="\n".join(lines),
                 color=0xFFDBE5,
             )
@@ -328,60 +385,55 @@ async def loot_history(ctx, *, query: str = None):
                 self.current_page += 1
                 await self.update_message(interaction)
 
-    # Send first page
     view = LootHistoryView()
     page_items = history[:items_per_page]
     lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {value} {item}" for item, value, ts in page_items]
 
     embed = discord.Embed(
-        title=f"{target.display_name}'s Loot History (Page 1/{total_pages})",
+        title=f"<:hnote1:1420592325817663570> {ctx.author.display_name}'s Loot History (Page 1/{total_pages})",
         description="\n".join(lines),
         color=0xFFDBE5,
     )
     embed.set_thumbnail(url=thumbnail_url)
     await ctx.send(embed=embed, view=view)
 
-
 @bot.command(name="cooldown")
-async def check_cooldown(ctx, *, query: str = None):
+async def check_cooldown(ctx):
+    user_id = ctx.author.id
     now = datetime.datetime.now(datetime.timezone.utc)
 
-    # Figure out target
-    if query:
-        target = find_member_by_name_or_id(ctx.guild, query)
-        if not target:
-            await ctx.send(f"❌ Could not find a user matching '{query}'.")
-            return
-    else:
-        target = ctx.author
-
-    user_id = target.id
-
     if user_id not in user_cooldowns:
-        await ctx.send(f"{target.mention} can open a lootbox right now!")
+        await ctx.send(f"{ctx.author.mention}, you can open a lootbox right now!")
         return
 
     last_open = user_cooldowns[user_id]
     elapsed = (now - last_open).total_seconds()
 
     if elapsed >= COOLDOWN_SECONDS:
-        await ctx.send(f"{target.mention} can open a lootbox right now!")
+        await ctx.send(f"{ctx.author.mention}, you can open a lootbox right now!")
     else:
         next_time = last_open + datetime.timedelta(seconds=COOLDOWN_SECONDS)
         unix_time = int(next_time.timestamp())
         formatted_time = f"<t:{unix_time}:f>"
 
         embed = discord.Embed(
-            title="Cooldown Active ⏳",
+            title="Oops! You're Still On Cooldown! <:024_bear_clock_time:1420541982094266480>",
             color=0xFFFFFF,
         )
         embed.add_field(
             name="\u200b",
-            value=f"{target.mention} can open another chest on: {formatted_time}",
+            value=f"<a:h1flower:1398829165503053957> You can open another chest again on: {formatted_time}",
             inline=False,
         )
+        embed.add_field(
+            name="\u200b",
+            value="<a:h1flower:1398829165503053957> *Thank you for boosting us, cutie!*",
+            inline=False,
+        )
+        embed.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/1321372597572599869/1420546860569071768/IMG_9417.jpg"
+        )
         await ctx.send(embed=embed)
-
 
 @bot.command(name="help")
 async def help_command(ctx):
@@ -396,6 +448,44 @@ async def help_command(ctx):
     embed.add_field(name="!help", value="Show this help message with all available commands.", inline=False)
     embed.add_field(name="!prize", value="This shows list of available prizes.", inline=False)
     embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1420560553008697474/1420613932288180265/IMG_9442.jpg")
+    await ctx.send(embed=embed)
+
+@bot.command(name="help2")
+async def help_command(ctx):
+    is_booster = bool(ctx.author.premium_since)
+
+    embed = discord.Embed(
+        title="💖 Bot Commands",
+        description="Here’s what you can do!",
+        color=0xFFC0CB
+    )
+
+    if is_booster:
+        # Booster-only view
+        embed.add_field(
+            name="🌸 Booster-Only Commands",
+            value=(
+                "`!open` — Open a lootbox (Cooldown: 30 days)\n"
+                "`!history` — View your loot history\n"
+                "`!cooldown` — Check your remaining cooldowns\n"
+                "`!prize` — Learn how to claim your rewards"
+            ),
+            inline=False
+        )
+
+    # Everyone commands
+    embed.add_field(
+        name="🍬 Everyone Commands",
+        value=(
+            "`!trickortreat` — Collect Halloween Candy (Cooldown: 30 minutes)\n"
+            "`!candy` — See how much candy you’ve collected"
+        ),
+        inline=False
+    )
+
+    if not is_booster:
+        embed.set_footer(text="💎 Boost the server to unlock exclusive lootbox rewards & commands!")
+
     await ctx.send(embed=embed)
 
 @bot.command(name="prize")

@@ -7,7 +7,6 @@ import random
 import datetime
 import os
 from dotenv import load_dotenv
-import difflib
 import asyncio
 
 # -------------------------------
@@ -19,10 +18,9 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # -------------------------------
 # CONFIG
 # -------------------------------
-#--- booster ch: 1420601193222111233
-TARGET_CHANNEL_IDS = [1420560553008697474]  # multiple channels
+TARGET_CHANNEL_IDS = [1420560553008697474]
 COMMAND_PREFIX = "!"
-COOLDOWN_SECONDS = 30 * 24 * 60 * 60  # 30 days in seconds
+COOLDOWN_SECONDS = 30 * 24 * 60 * 60  # 30 days
 DATA_FILE = "loot_data.json"
 LOOT_EMOJIS = {
     "Tickets": "🎟️",
@@ -32,10 +30,8 @@ LOOT_EMOJIS = {
     "Mint Dust": "🍃",
     "Unopened Dye": "🎨"
 }
-# User IDs who bypass cooldown
 COOLDOWN_BYPASS_USERS = {296181275344109568, 1370076515429253264, 547733449818243084}
 
-# Loot table with chances (%) and reward ranges
 LOOT_TABLE = [
     ("Tickets", (1, 5), 5),
     ("Bits", (500, 1000), 30),
@@ -45,6 +41,8 @@ LOOT_TABLE = [
     ("Unopened Dye", (1, 3), 5)
 ]
 
+ALLOWED_USER_IDS = {1370076515429253264, 272880100230430720, 296181275344109568, 547733449818243084}
+
 # -------------------------------
 # BOT SETUP
 # -------------------------------
@@ -52,77 +50,36 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
 intents.members = True
-
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents, help_command=None, case_insensitive=True)
 
 # -------------------------------
 # DATA STORAGE
 # -------------------------------
-user_cooldowns = {}  # user_id: datetime (UTC aware)
-user_loot_history = {}  # user_id: list of (item, value, timestamp)
+user_cooldowns = {}
+user_loot_history = {}
 
 def load_data():
     global user_cooldowns, user_loot_history
     if os.path.exists(DATA_FILE):
         try:
             with open(DATA_FILE, "r") as f:
-                raw_data = f.read()
-                # Attempt to parse JSON
-                data = json.loads(raw_data)
-                
-            user_cooldowns = {
-                int(k): datetime.datetime.fromisoformat(v).astimezone(datetime.timezone.utc)
-                for k, v in data.get("cooldowns", {}).items()
-            }
-            user_loot_history = {
-                int(k): [
-                    (i, v, datetime.datetime.fromisoformat(t).astimezone(datetime.timezone.utc))
-                    for i, v, t in v_list
-                ]
-                for k, v_list in data.get("history", {}).items()
-            }
-
-        except json.JSONDecodeError as e:
-            print(f"[WARNING] loot_data.json is corrupted: {e}. Attempting partial recovery...")
-            try:
-                # Try to extract first valid JSON object
-                recovered_data = None
-                for line in raw_data.splitlines():
-                    try:
-                        recovered_data = json.loads(line)
-                        break
-                    except:
-                        continue
-                if recovered_data:
-                    user_cooldowns = {
-                        int(k): datetime.datetime.fromisoformat(v).astimezone(datetime.timezone.utc)
-                        for k, v in recovered_data.get("cooldowns", {}).items()
-                    }
-                    user_loot_history = {
-                        int(k): [
-                            (i, v, datetime.datetime.fromisoformat(t).astimezone(datetime.timezone.utc))
-                            for i, v, t in v_list
-                        ]
-                        for k, v_list in recovered_data.get("history", {}).items()
-                    }
-                    print("[INFO] Successfully recovered partial data.")
-                else:
-                    print("[ERROR] Could not recover any data. Please fix loot_data.json manually.")
-            except Exception as ex:
-                print(f"[ERROR] Failed to recover data: {ex}")
+                data = json.load(f)
+            user_cooldowns = {int(k): datetime.datetime.fromisoformat(v).astimezone(datetime.timezone.utc)
+                              for k, v in data.get("cooldowns", {}).items()}
+            user_loot_history = {int(k): [(i, v, datetime.datetime.fromisoformat(t).astimezone(datetime.timezone.utc))
+                                          for i, v, t in v_list]
+                                 for k, v_list in data.get("history", {}).items()}
+        except Exception as e:
+            print(f"[ERROR] Failed to load loot data: {e}")
 
 def save_data():
     data = {
         "cooldowns": {str(k): v.isoformat() for k, v in user_cooldowns.items()},
-        "history": {
-            str(k): [(i, v, t.isoformat()) for i, v, t in v_list]
-            for k, v_list in user_loot_history.items()
-        },
+        "history": {str(k): [(i, v, t.isoformat()) for i, v, t in v_list] for k, v_list in user_loot_history.items()},
     }
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-# Load data on startup
 load_data()
 
 # -------------------------------
@@ -136,7 +93,7 @@ def roll_loot():
     reward_item = random.choices(items, weights=weights, k=1)[0]
     low, high = ranges[reward_item]
 
-    # Skew towards lower numbers
+    # #7 logic: rare items harder to get
     exp = 3
     u = random.random() ** exp
     reward_value = low + int(u * (high - low))
@@ -155,9 +112,6 @@ async def on_ready():
             if channel:
                 await channel.send(f"{bot.user.mention} is now online!")
 
-# -------------------------------
-# OFFLINE NOTIFICATION
-# -------------------------------
 async def notify_offline():
     for guild in bot.guilds:
         for channel_id in TARGET_CHANNEL_IDS:
@@ -169,46 +123,147 @@ async def notify_offline():
                     print(f"Failed to send offline message to {channel_id}: {e}")
 
 # -------------------------------
+# GLOBALS
+# -------------------------------
+original_prizes = {}
+active_views = {}
+
+# -------------------------------
+# MINI-GAME
+# -------------------------------
+class DoubleOrNothingView(View):
+    def __init__(self, ctx, user_id, item, value, timestamp):
+        super().__init__(timeout=30)
+        self.ctx = ctx
+        self.user_id = user_id
+        self.item = item
+        self.value = value
+        self.original_value = value
+        self.timestamp = timestamp
+        self.choice_made = False
+        self.time_left = 30
+        self.interaction_message = None
+        if user_id not in original_prizes:
+            original_prizes[user_id] = (item, value, timestamp)
+        active_views[user_id] = self
+
+    async def interaction_check(self, interaction: Interaction) -> bool:
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("This isn’t your lootbox!", ephemeral=True)
+            return False
+        return True
+
+    async def start_timer(self):
+        while self.time_left > 0 and not self.choice_made:
+            embed = discord.Embed(
+                title="🎰 Double or Nothing?",
+                description=(f"{self.ctx.author.mention}, you won **{self.value} {self.item}**!\nPick: 🎲 (Double) | 🍀 (Safe)"),
+                color=0x00FF00
+            )
+            embed.add_field(name="⏳ Time remaining", value=f"**{self.time_left} seconds**")
+            embed.add_field(name="Prize", value=f"**{self.value} {self.item}**")
+            try:
+                await self.interaction_message.edit(embed=embed, view=self)
+            except Exception:
+                pass
+            await asyncio.sleep(1)
+            self.time_left -= 1
+        if not self.choice_made:
+            await self.on_timeout()
+
+    async def handle_choice(self, interaction, choice):
+        result_text = ""
+        color = 0xFFD700
+        gif_url = None
+
+        if choice == "double":
+            if random.random() < 0.5:
+                self.value *= 2
+                result_text = f"🎲 You risked it all... and WON! Your prize is now **{self.value} {self.item}**!"
+                color = 0x00FF00
+            else:
+                self.value = 0
+                result_text = "💀 You risked it all... and LOST! No reward this time."
+                color = 0xFF0000
+        elif choice == "safe":
+            result_text = f"🍀 You played it safe! You keep your prize of **{self.value} {self.item}**."
+
+        if self.user_id not in user_loot_history:
+            user_loot_history[self.user_id] = []
+        user_loot_history[self.user_id].append((self.item, self.value, self.timestamp))
+        asyncio.create_task(asyncio.to_thread(save_data))
+
+        for child in self.children:
+            child.disabled = True
+
+        embed = discord.Embed(title="🎰 Double or Nothing Result", description=result_text, color=color)
+        embed.add_field(name="Original Prize", value=f"**{self.original_value} {self.item}**", inline=False)
+        if gif_url:
+            embed.set_image(url=gif_url)
+
+        await interaction.response.edit_message(embed=embed, view=self)
+        self.choice_made = True
+        self.stop()
+        if self.user_id in active_views and active_views[self.user_id] == self:
+            del active_views[self.user_id]
+
+    @button(label="🎲", style=discord.ButtonStyle.primary)
+    async def double_button(self, interaction: Interaction, button: Button):
+        await self.handle_choice(interaction, "double")
+
+    @button(label="🍀", style=discord.ButtonStyle.success)
+    async def safe_button(self, interaction: Interaction, button: Button):
+        await self.handle_choice(interaction, "safe")
+
+    async def on_timeout(self):
+        if not self.choice_made:
+            self.choice_made = True
+            try:
+                await self.handle_choice(self.interaction_message.interaction, "safe")
+            except Exception:
+                embed = discord.Embed(
+                    title="🎰 Double or Nothing Timed Out",
+                    description=f"⏳ Time’s up, {self.ctx.author.mention}!\nYou keep your original prize of **{self.value} {self.item}**.",
+                    color=0xAAAAAA
+                )
+                embed.add_field(name="Prize", value=f"**{self.value} {self.item}**", inline=False)
+                try:
+                    await self.interaction_message.edit(embed=embed, view=None)
+                except Exception:
+                    await self.ctx.send(embed=embed)
+            self.stop()
+            if self.user_id in active_views and active_views[self.user_id] == self:
+                del active_views[self.user_id]
+
+# -------------------------------
 # COMMANDS
 # -------------------------------
-
 def find_member_by_name_or_id(guild, query: str):
     query_lower = query.lower()
-
-    # --- Check if mention ---
     if query.startswith("<@") and query.endswith(">"):
-        try:
-            user_id = int(query.strip("<@!>"))
-            return guild.get_member(user_id)
-        except ValueError:
-            return None
-
-    # --- Check if numeric ID ---
-    if query.isdigit():
-        return guild.get_member(int(query))
-
-    # --- Strict partial match (case-insensitive) ---
-    for member in guild.members:
-        if query_lower in member.display_name.lower() or query_lower in member.name.lower():
-            return member
-
-    # No fuzzy matching — return None if no exact partial match found
+        try: return guild.get_member(int(query.strip("<@!>")))
+        except: return None
+    if query.isdigit(): return guild.get_member(int(query))
+    for m in guild.members:
+        if query_lower in m.display_name.lower() or query_lower in m.name.lower():
+            return m
     return None
 
+# -------------------------------
+# Lootbox command
+# -------------------------------
 @bot.command(name="open")
 async def open_lootbox(ctx):
     try:
         if ctx.channel.id not in TARGET_CHANNEL_IDS:
             return
-
         user_id = ctx.author.id
-
-        # Check for Nitro boost / cooldown bypass
+        if user_id in active_views:
+            try: active_views[user_id].stop()
+            except: pass
         if not ctx.author.premium_since and user_id not in COOLDOWN_BYPASS_USERS:
             await ctx.send("You must be boosting to open a lootbox.")
             return
-
-        # Cooldown check
         now = datetime.datetime.now(datetime.timezone.utc)
         if user_id not in COOLDOWN_BYPASS_USERS and user_id in user_cooldowns:
             last_open = user_cooldowns[user_id]
@@ -216,58 +271,87 @@ async def open_lootbox(ctx):
             if elapsed < COOLDOWN_SECONDS:
                 await ctx.send("You are on cooldown!")
                 return
-
-        # Roll loot
         item, value = roll_loot()
         emoji = LOOT_EMOJIS.get(item, "🎁")
         user_cooldowns[user_id] = now
+        original_prizes[user_id] = (item, value, now)
 
-        # STEP 1: Praying embed
-        praying_embed = discord.Embed(
-            title="🌸 Praying ♡",
-            description=f"{random.choice(list(LOOT_EMOJIS.values()))}   "
-                        f"{random.choice(list(LOOT_EMOJIS.values()))}   "
-                        f"{random.choice(list(LOOT_EMOJIS.values()))}",
-            color=0xFFC5D3
-        )
-        message = await ctx.send(embed=praying_embed)
-
-        # Small pause before spin starts
-        await asyncio.sleep(0.6)
-
-        # STEP 2: Spinning animation
-        spin_embed = discord.Embed(
-            title="🎰 Spinning...",
-            description="| 🎲   💎   💰 |",
-            color=0xFFC5D3
-        )
-        await message.edit(embed=spin_embed)
-
+        # Slot spin animation
+        embed = discord.Embed(title="🎰 Spinning...", color=0xFFC5D3)
+        slot_message = await ctx.send(embed=embed)
         for _ in range(3):
             reels = [random.choice(list(LOOT_EMOJIS.values())) for _ in range(3)]
-            spin_embed.description = f"| {reels[0]}   {reels[1]}   {reels[2]} |"
-            await message.edit(embed=spin_embed)
-            await asyncio.sleep(0.25)
+            embed.description = f"| {reels[0]}   {reels[1]}   {reels[2]} |"
+            await slot_message.edit(embed=embed)
+            await asyncio.sleep(0.08)
+        embed.description = f"| {emoji}   {emoji}   {emoji} |"
+        await slot_message.edit(embed=embed)
 
-        # STEP 3: Prize result
-        result_embed = discord.Embed(
-            title="🎉 Congrats!",
-            description=f"{ctx.author.mention}, you won **{value} {item}** {emoji}",
-            color=0xFFC5D3
-        )
-
-        # STEP 4: Attach Double or Nothing view
+        # Start Double or Nothing
+        game_embed = discord.Embed(title="🎰 Double or Nothing?", description=f"{ctx.author.mention}, you won **{value} {item}**!\nPick: 🎲 (Double) | 🍀 (Safe)", color=0x00FF00)
         view = DoubleOrNothingView(ctx, user_id, item, value, now)
+        message = await ctx.send(embed=game_embed, view=view)
         view.interaction_message = message
-        await message.edit(embed=result_embed, view=view)
-
-        # Start timer for Double or Nothing
+        active_views[user_id] = view
         asyncio.create_task(view.start_timer())
 
     except Exception:
         import traceback
         traceback.print_exc()
 
+
+
+ALLOWED_USER_IDS = {1370076515429253264, 272880100230430720, 296181275344109568, 547733449818243084}  # replace with actual Discord user IDs
+
+@bot.command(name="retry")
+async def retry_lootbox(ctx, member: discord.Member):
+    try:
+        if ctx.author.id not in ALLOWED_USER_IDS:
+            await ctx.send("❌ You don’t have permission to use this command.")
+            return
+
+        user_id = member.id
+
+        if user_id not in original_prizes:
+            await ctx.send(f"❌ {member.display_name} has no original prize to retry.")
+            return
+
+        # ✅ Always reference the ORIGINAL prize saved earlier
+        item, value, timestamp = original_prizes[user_id]
+
+        # Disable previous view if exists
+        if user_id in active_views:
+            try:
+                active_views[user_id].stop()
+            except Exception:
+                pass
+
+        game_embed = discord.Embed(
+            title="🎰 Double or Nothing Retry",
+            description=(f"{member.mention}, you get another chance!\n\n"
+                         f"Your **original prize** was **{value} {item}**.\n"
+                         "Do you want to risk it again?\n\n"
+                         "Pick one: 🎲 (Double) | 🍀 (Safe)"),
+            color=0x00FF00
+        )
+        game_embed.add_field(name="Original Prize", value=f"**{value} {item}**")
+
+        view = DoubleOrNothingView(
+            ctx,
+            user_id,
+            item,
+            value,
+            datetime.datetime.now(datetime.timezone.utc)
+        )
+
+        message = await ctx.send(embed=game_embed, view=view)
+        view.interaction_message = message
+        asyncio.create_task(view.start_timer())
+
+        await ctx.send(f"✅ {member.mention} has been given another try at Double or Nothing!")
+
+    except Exception as e:
+        await ctx.send(f"❌ Error retrying lootbox: {e}")
 
 @bot.command(name="history")
 async def loot_history(ctx, *, query: str = None):
@@ -415,7 +499,6 @@ async def prize_command(ctx):
         url="https://cdn.discordapp.com/attachments/1420560553008697474/1420993021972840468/IMG_9468.gif?ex=68d76a61&is=68d618e1&hm=4e681ce1f4fa398443d0363c8397197edaa1880c9057739893eb0025ef614b3e&"
     )
     await ctx.send(embed=embed)
-
 
 # -------------------------------
 # RUN BOT WITH OFFLINE NOTIFICATION
