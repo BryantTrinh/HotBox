@@ -1,13 +1,12 @@
 import discord
 import json
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ui import View, Button, button
 from discord import Interaction
 import random
 import datetime
 import os
 from dotenv import load_dotenv
-import difflib
 import asyncio
 
 # -------------------------------
@@ -20,9 +19,9 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # CONFIG
 # -------------------------------
 #--- booster ch: 1420601193222111233
-TARGET_CHANNEL_IDS = [1420560553008697474]  # multiple channels
+TARGET_CHANNEL_IDS = [1420560553008697474, 1420601193222111233]  # multiple channels
 COMMAND_PREFIX = "!"
-COOLDOWN_SECONDS = 30 * 24 * 60 * 60  # 30 days in seconds
+COOLDOWN_SECONDS = 14 * 24 * 60 * 60  # 14 days in seconds
 DATA_FILE = "loot_data.json"
 LOOT_EMOJIS = {
     "Tickets": "🎟️",
@@ -53,7 +52,12 @@ intents.message_content = True
 intents.guilds = True
 intents.members = True
 
-bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents, help_command=None, case_insensitive=True)
+bot = commands.Bot(
+    command_prefix=COMMAND_PREFIX,
+    intents=intents,
+    help_command=None,  # disable default help so custom one works
+    case_insensitive=True
+)
 
 # -------------------------------
 # DATA STORAGE
@@ -169,9 +173,8 @@ async def notify_offline():
                     print(f"Failed to send offline message to {channel_id}: {e}")
 
 # -------------------------------
-# COMMANDS
+# COMMAND HELPERS
 # -------------------------------
-
 def find_member_by_name_or_id(guild, query: str):
     query_lower = query.lower()
 
@@ -192,9 +195,124 @@ def find_member_by_name_or_id(guild, query: str):
         if query_lower in member.display_name.lower() or query_lower in member.name.lower():
             return member
 
-    # No fuzzy matching — return None if no exact partial match found
     return None
 
+# -------------------------------
+# MINI GAME
+# -------------------------------
+class DoubleOrNothingView(View):
+    def __init__(self, ctx, user_id, item, value, timestamp):
+        super().__init__(timeout=30)
+        self.ctx = ctx
+        self.user_id = user_id
+        self.item = item
+        self.value = value
+        self.timestamp = timestamp
+        self.interaction_message = None
+        self.remaining = 30
+        self.ended = False  # Track if result already handled
+
+    async def start_timer(self):
+        try:
+            while self.remaining > 0 and not self.ended:
+                await asyncio.sleep(1)
+                self.remaining -= 1
+                if self.interaction_message and any(not child.disabled for child in self.children):
+                    embed = self.build_embed()
+                    await self.interaction_message.edit(embed=embed, view=self)
+
+            # Timer reached 0 — auto "Keep"
+            if not self.ended and self.interaction_message:
+                self.ended = True
+                for child in self.children:
+                    child.disabled = True
+                await self.interaction_message.edit(view=self)
+
+                result_text = f"{self.ctx.author.mention} safely kept **{self.value} {self.item}**."
+                gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422085281632489514/CFB31F85-BD99-423B-9BE8-7973659FC0C7.gif"
+
+                result_embed = discord.Embed(
+                    title="Double or Nothing Result",
+                    description=result_text + "\n\nCreate a ticket to claim your prize in <#1412934283613700136>",
+                    color=0xFFC5D3
+                )
+                result_embed.set_image(url=gif_url)
+                await self.interaction_message.edit(embed=result_embed, view=None)
+
+                # Save to history
+                user_loot_history.setdefault(self.user_id, []).append(
+                    (self.item, self.value, self.timestamp)
+                )
+                save_data()
+
+        except Exception as e:
+            print(f"[Timer error] {e}")
+
+    def build_embed(self):
+        return discord.Embed(
+            title="🎰 Double or Nothing?",
+            description=(
+                f"{self.ctx.author.mention}, you won **{self.value} {self.item}!**\n\n"
+                f"Do you want to risk it?\n\n"
+                f"Pick one: 🎲 (Double) | 🍀 (Keep)\n"
+                f"⏳ **Time remaining:** {self.remaining} seconds\n\n"
+                f"**Prize:** {self.value} {self.item}"
+            ),
+            color=0xFFC5D3
+        )
+
+    async def show_result_embed(self, interaction: Interaction, result_text: str, gif_url: str):
+        for child in self.children:
+            child.disabled = True
+        await interaction.message.edit(view=self)
+
+        if self.value > 0:
+            result_text += "\n\nCreate a ticket to claim your prize in <#1412934283613700136>"
+
+        result_embed = discord.Embed(
+            title="Double or Nothing Result",
+            description=result_text,
+            color=0xFFC5D3
+        )
+        result_embed.set_image(url=gif_url)
+        await interaction.response.edit_message(embed=result_embed, view=None)
+
+        if self.value > 0:
+            user_loot_history.setdefault(self.user_id, []).append(
+                (self.item, self.value, self.timestamp)
+            )
+            save_data()
+
+    @button(label="🎲 Double", style=discord.ButtonStyle.success)
+    async def double_button(self, interaction: Interaction, button: Button):
+        if interaction.user.id != self.user_id:
+            return await interaction.response.send_message("❌ This isn’t your lootbox!", ephemeral=True)
+
+        if random.random() < 0.5:
+            self.value *= 2
+            result_text = f"🎉 {interaction.user.mention} doubled their reward! Now **{self.value} {self.item}**"
+            gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422038487569268747/120AEC33-8409-4DDF-9EA3-D6C95DC0D030.gif"
+        else:
+            self.value = 0
+            result_text = f"💀 {interaction.user.mention} lost it all!"
+            gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422040286791733409/IMG_9535.gif"
+
+        await self.show_result_embed(interaction, result_text, gif_url)
+
+    @button(label="🍀 Keep", style=discord.ButtonStyle.secondary)
+    async def safe_button(self, interaction: Interaction, button: Button):
+        if interaction.user.id != self.user_id:
+            return await interaction.response.send_message("❌ This isn’t your lootbox!", ephemeral=True)
+
+        result_text = f"{interaction.user.mention} safely kept **{self.value} {self.item}**."
+        gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422085281632489514/CFB31F85-BD99-423B-9BE8-7973659FC0C7.gif"
+        await self.show_result_embed(interaction, result_text, gif_url)
+
+
+
+# -------------------------------
+# COMMANDS
+# -------------------------------
 @bot.command(name="open")
 async def open_lootbox(ctx):
     try:
@@ -202,27 +320,35 @@ async def open_lootbox(ctx):
             return
 
         user_id = ctx.author.id
-
-        # Check for Nitro boost / cooldown bypass
-        if not ctx.author.premium_since and user_id not in COOLDOWN_BYPASS_USERS:
-            await ctx.send("You must be boosting to open a lootbox.")
-            return
-
-        # Cooldown check
         now = datetime.datetime.now(datetime.timezone.utc)
-        if user_id not in COOLDOWN_BYPASS_USERS and user_id in user_cooldowns:
+
+        # --- Fetch the full Member object ---
+        member = ctx.guild.get_member(user_id)
+        if member is None:
+            member = await ctx.guild.fetch_member(user_id)
+
+        # --- Check Nitro booster / bypass users ---
+        if user_id not in COOLDOWN_BYPASS_USERS:
+            # Use server boost status
+            if not member.premium_since:
+                await ctx.send("❌ You must be boosting the server to open a lootbox.")
+                return
+
+        # --- Check cooldown / retry ---
+        if user_id in pending_retries:
+            pending_retries.remove(user_id)
+        elif user_id not in COOLDOWN_BYPASS_USERS and user_id in user_cooldowns:
             last_open = user_cooldowns[user_id]
             elapsed = (now - last_open).total_seconds()
             if elapsed < COOLDOWN_SECONDS:
-                await ctx.send("You are on cooldown!")
+                await ctx.send("⏳ You are on cooldown!")
                 return
 
-        # Roll loot
+        # --- Roll loot ---
         item, value = roll_loot()
-        emoji = LOOT_EMOJIS.get(item, "🎁")
         user_cooldowns[user_id] = now
 
-        # STEP 1: Praying embed
+        # --- Step 1: Praying animation ---
         praying_embed = discord.Embed(
             title="🌸 Praying ♡",
             description=f"{random.choice(list(LOOT_EMOJIS.values()))}   "
@@ -231,37 +357,30 @@ async def open_lootbox(ctx):
             color=0xFFC5D3
         )
         message = await ctx.send(embed=praying_embed)
+        await asyncio.sleep(0.5)
 
-        # Small pause before spin starts
-        await asyncio.sleep(0.6)
-
-        # STEP 2: Spinning animation
-        spin_embed = discord.Embed(
-            title="🎰 Spinning...",
-            description="| 🎲   💎   💰 |",
-            color=0xFFC5D3
-        )
+        # --- Step 2: Spinning animation ---
+        spin_embed = discord.Embed(title="🎰 Spinning...", description="| 🎲 💎 💰 |", color=0xFFC5D3)
         await message.edit(embed=spin_embed)
 
+        final_emoji = LOOT_EMOJIS[item]
+
+        # Spin random emojis
         for _ in range(3):
             reels = [random.choice(list(LOOT_EMOJIS.values())) for _ in range(3)]
             spin_embed.description = f"| {reels[0]}   {reels[1]}   {reels[2]} |"
             await message.edit(embed=spin_embed)
-            await asyncio.sleep(0.25)
+            await asyncio.sleep(0.2)
 
-        # STEP 3: Prize result
-        result_embed = discord.Embed(
-            title="🎉 Congrats!",
-            description=f"{ctx.author.mention}, you won **{value} {item}** {emoji}",
-            color=0xFFC5D3
-        )
+        # Show winning frame
+        spin_embed.description = f"| {final_emoji}   {final_emoji}   {final_emoji} |"
+        await message.edit(embed=spin_embed)
+        await asyncio.sleep(0.5)
 
-        # STEP 4: Attach Double or Nothing view
+        # --- Step 3: Attach DoubleOrNothingView ---
         view = DoubleOrNothingView(ctx, user_id, item, value, now)
-        view.interaction_message = message
-        await message.edit(embed=result_embed, view=view)
-
-        # Start timer for Double or Nothing
+        don_embed = view.build_embed()
+        view.interaction_message = await ctx.send(embed=don_embed, view=view)
         asyncio.create_task(view.start_timer())
 
     except Exception:
@@ -269,9 +388,10 @@ async def open_lootbox(ctx):
         traceback.print_exc()
 
 
+
+
 @bot.command(name="history")
 async def loot_history(ctx, *, query: str = None):
-    # Figure out target
     if query:
         target = find_member_by_name_or_id(ctx.guild, query)
         if not target:
@@ -304,8 +424,7 @@ async def loot_history(ctx, *, query: str = None):
                      for item, value, ts in page_items]
 
             embed = discord.Embed(
-                title=f"{target.display_name}'s Loot History "
-                      f"(Page {self.current_page + 1}/{total_pages})",
+                title=f"{target.display_name}'s Loot History (Page {self.current_page + 1}/{total_pages})",
                 description="\n".join(lines),
                 color=0xFFDBE5,
             )
@@ -328,7 +447,6 @@ async def loot_history(ctx, *, query: str = None):
                 self.current_page += 1
                 await self.update_message(interaction)
 
-    # Send first page
     view = LootHistoryView()
     page_items = history[:items_per_page]
     lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {value} {item}" for item, value, ts in page_items]
@@ -341,12 +459,10 @@ async def loot_history(ctx, *, query: str = None):
     embed.set_thumbnail(url=thumbnail_url)
     await ctx.send(embed=embed, view=view)
 
-
 @bot.command(name="cooldown")
 async def check_cooldown(ctx, *, query: str = None):
     now = datetime.datetime.now(datetime.timezone.utc)
 
-    # Figure out target
     if query:
         target = find_member_by_name_or_id(ctx.guild, query)
         if not target:
@@ -356,7 +472,6 @@ async def check_cooldown(ctx, *, query: str = None):
         target = ctx.author
 
     user_id = target.id
-
     if user_id not in user_cooldowns:
         await ctx.send(f"{target.mention} can open a lootbox right now!")
         return
@@ -382,7 +497,6 @@ async def check_cooldown(ctx, *, query: str = None):
         )
         await ctx.send(embed=embed)
 
-
 @bot.command(name="help")
 async def help_command(ctx):
     embed = discord.Embed(
@@ -390,7 +504,7 @@ async def help_command(ctx):
         description="Here are all the commands you can use:",
         color=0xF1DBB6
     )
-    embed.add_field(name="!open", value="Open a lootbox! Can only be used once every 30 days.", inline=False)
+    embed.add_field(name="!open", value="Open a lootbox! Can only be used once every 14 days.", inline=False)
     embed.add_field(name="!history", value="View your lootbox history with paging buttons.", inline=False)
     embed.add_field(name="!cooldown", value="Check how long until you can open your next lootbox.", inline=False)
     embed.add_field(name="!help", value="Show this help message with all available commands.", inline=False)
@@ -412,13 +526,33 @@ async def prize_command(ctx):
     embed.add_field(name="Mint Dust 🍃", value="\u200b", inline=False)
     embed.add_field(name="Unopened Dye 🎨", value="\u200b", inline=False)
     embed.set_thumbnail(
-        url="https://cdn.discordapp.com/attachments/1420560553008697474/1420993021972840468/IMG_9468.gif?ex=68d76a61&is=68d618e1&hm=4e681ce1f4fa398443d0363c8397197edaa1880c9057739893eb0025ef614b3e&"
+        url="https://cdn.discordapp.com/attachments/1420560553008697474/1420993021972840468/IMG_9468.gif"
     )
     await ctx.send(embed=embed)
 
 
 # -------------------------------
-# RUN BOT WITH OFFLINE NOTIFICATION
+# RETRY MECHANIC
+# -------------------------------
+
+# User IDs allowed to give retries
+RETRY_WHITELIST = {1370076515429253264, 296181275344109568}
+
+# Track pending retries for users
+pending_retries = set()
+
+@bot.command(name="retry")
+async def retry_command(ctx, target: discord.Member):
+    """Allows whitelisted users to grant a retry to another user."""
+    if ctx.author.id not in RETRY_WHITELIST:
+        return await ctx.send("❌ You are not allowed to give retries.")
+
+    # Add target to pending retries
+    pending_retries.add(target.id)
+    await ctx.send(f"✅ {target.mention} can now use `!open` again immediately (cooldown bypass once).")
+
+# -------------------------------
+# RUN BOT
 # -------------------------------
 async def main():
     try:

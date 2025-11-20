@@ -1,0 +1,3818 @@
+{
+    "players": {
+        "296181275344109568": {
+            "characters": [
+                {
+                    "id": "2378",
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 95,
+                        "skill": "Cherry Pop"
+                    }
+                },
+                {
+                    "id": "2567",
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 98,
+                        "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "7440",
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 98,
+                        "skill": "Magic Beam"
+                    }
+                },
+                {
+                    "id": "9365",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 7,
+                        "hp": 91,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "5822",
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 10,
+                        "hp": 92,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "id": "1903",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 100,
+                        "skill": "Twinkle Twirl"
+                    }
+                },
+                {
+                    "id": "3932",
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 88,
+                        "skill": "Sugar Puff"
+                    }
+                },
+                {
+                    "id": "5855",
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 13,
+                        "dodge": 9,
+                        "hp": 94,
+                        "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "3210",
+                    "name": "My Melody",
+                    "image": "Mel2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 76,
+                        "skill": "Sugar Puff"
+                    }
+                },
+                {
+                    "id": "1639",
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 92,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "id": "2057",
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 86,
+                        "skill": "Rainbow Burst"
+                    }
+                },
+                {
+                    "id": "6980",
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 90,
+                        "skill": "Petal Dance"
+                    }
+                },
+                {
+                    "id": "6651",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 76,
+                        "skill": "Fluffy Shield"
+                    }
+                },
+                {
+                    "id": "2144",
+                    "name": "Kuromi",
+                    "image": "Kur4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 83,
+                        "skill": "Candy Cloud"
+                    }
+                },
+                {
+                    "id": "3084",
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 78,
+                        "skill": "Moonbeam Hug"
+                    }
+                },
+                {
+                    "id": "s06",
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 76,
+                        "skill": "Sparkle Dash"
+                    }
+                },
+                {
+                    "id": "y0vfo",
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 82,
+                        "skill": "Fluffy Shield"
+                    }
+                },
+                {
+                    "id": "7cxk",
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 78,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "zgoe8",
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 20,
+                        "agility": 23,
+                        "dodge": 18,
+                        "hp": 97,
+                        "skill": "Berry Blush"
+                    }
+                },
+                {
+                    "id": "6",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 99,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "id": "s",
+                    "name": "Pochacco",
+                    "image": "Poch1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 6,
+                        "hp": 98,
+                        "skill": "Sparkle Dash"
+                    }
+                },
+                {
+                    "id": "5k9bt",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 100,
+                        "skill": "Magic Beam"
+                    }
+                },
+                {
+                    "id": "icuip",
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 87,
+                        "skill": "Magic Beam"
+                    }
+                },
+                {
+                    "id": "y02v",
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 80,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "ok7",
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 77,
+                        "skill": "Berry Blush"
+                    }
+                },
+                {
+                    "id": "ungly",
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 96,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "uf",
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 75,
+                        "skill": "Moonbeam Hug"
+                    }
+                },
+                {
+                    "id": "sko6",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 79,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "id": "mt",
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 78,
+                        "skill": "Petal Dance"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 15,
+            "upgrades": [
+                "Gift Box",
+                "Outfit Upgrade"
+            ]
+        },
+        "1044136575103152189": {
+            "characters": [
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 90,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "5194"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 95,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "8996"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 77,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "1642"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 81,
+                        "skill": "Super Jump"
+                    },
+                    "id": "6878"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 91,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "9374"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 94,
+                        "skill": "Candy Cloud"
+                    },
+                    "id": "3080"
+                },
+                {
+                    "id": "6025",
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 85,
+                        "skill": "Twinkle Twirl"
+                    }
+                },
+                {
+                    "id": "5127",
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 90,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 95,
+                        "skill": "Fuzzy Frenzy"
+                    },
+                    "id": "9383"
+                },
+                {
+                    "id": "8848",
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 78,
+                        "skill": "Twinkle Twirl"
+                    }
+                },
+                {
+                    "id": "2225",
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 7,
+                        "hp": 79,
+                        "skill": "Snuggle Smash"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "1370076515429253264": {
+            "characters": [
+                {
+                    "id": "eh0",
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 96,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "0mv19",
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 79,
+                        "skill": "Honey Drizzle"
+                    }
+                },
+                {
+                    "id": "n",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 87,
+                        "skill": "Candy Cloud"
+                    }
+                },
+                {
+                    "id": "8croa",
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 90,
+                        "skill": "Sugar Puff"
+                    }
+                },
+                {
+                    "id": "pz0",
+                    "name": "My Melody",
+                    "image": "Mel2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 96,
+                        "skill": "Glitter Charm"
+                    }
+                },
+                {
+                    "id": "bdfa6",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 12,
+                        "dodge": 9,
+                        "hp": 81,
+                        "skill": "Twinkle Twirl"
+                    }
+                },
+                {
+                    "id": "c1ef",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 90,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "zu3sa",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 10,
+                        "hp": 86,
+                        "skill": "Candy Cloud"
+                    }
+                },
+                {
+                    "id": "rji6",
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 82,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "id": "amka",
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 78,
+                        "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "mtk",
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 75,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "shpmk",
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 82,
+                        "skill": "Fluffy Shield"
+                    }
+                },
+                {
+                    "id": "t7nuc",
+                    "name": "Kuromi",
+                    "image": "Kur4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 5,
+                        "hp": 88,
+                        "skill": "Honey Drizzle"
+                    }
+                },
+                {
+                    "id": "i6",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 80,
+                        "skill": "Twinkle Twirl"
+                    }
+                },
+                {
+                    "id": "feul",
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 13,
+                        "dodge": 7,
+                        "hp": 89,
+                        "skill": "Starry Blink"
+                    }
+                },
+                {
+                    "id": "afcc0",
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 83,
+                        "skill": "Sugar Puff"
+                    }
+                },
+                {
+                    "id": "f2ysf",
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 5,
+                        "hp": 86,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "v9i",
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 77,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "edh4",
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 84,
+                        "skill": "Glitter Shot"
+                    }
+                },
+                {
+                    "id": "rw",
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 93,
+                        "skill": "Berry Blush"
+                    }
+                },
+                {
+                    "id": "1ngf",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 77,
+                        "skill": "Glitter Shot"
+                    }
+                },
+                {
+                    "id": "5p",
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 81,
+                        "skill": "Super Jump"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 33
+        },
+        "547733449818243084": {
+            "characters": [
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 6,
+                        "hp": 100,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "2483"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 82,
+                        "skill": "Sugar Sprinkle"
+                    },
+                    "id": "2068"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 84,
+                        "skill": "Magic Beam"
+                    },
+                    "id": "2704"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 90,
+                        "skill": "Sugar Sprinkle"
+                    },
+                    "id": "6963"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 94,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "5033"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 9,
+                        "hp": 75,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "9377"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 85,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "5760"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 12,
+                        "dodge": 8,
+                        "hp": 98,
+                        "skill": "Snuggle Smash"
+                    },
+                    "id": "9866"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 86,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "8781"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 79,
+                        "skill": "Moonbeam Hug"
+                    },
+                    "id": "2893"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 89,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "4986"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 5,
+                        "hp": 95,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "5629"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 88,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "8761"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 84,
+                        "skill": "Rainbow Burst"
+                    },
+                    "id": "5148"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 91,
+                        "skill": "Glitter Charm"
+                    },
+                    "id": "4423"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 75,
+                        "skill": "Starry Blink"
+                    },
+                    "id": "2937"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 81,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "8057"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 98,
+                        "skill": "Sparkle Dash"
+                    },
+                    "id": "5713"
+                },
+                {
+                    "id": "x",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 86,
+                        "skill": "Magic Beam"
+                    }
+                },
+                {
+                    "id": "nvs",
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 79,
+                        "skill": "Cherry Pop"
+                    }
+                },
+                {
+                    "id": "29yc",
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 99,
+                        "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "ihy",
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 79,
+                        "skill": "Snuggle Smash"
+                    }
+                },
+                {
+                    "id": "p0ey",
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 76,
+                        "skill": "Cherry Pop"
+                    }
+                },
+                {
+                    "id": "a1",
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 87,
+                        "skill": "Rainbow Burst"
+                    }
+                },
+                {
+                    "id": "g",
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 9,
+                        "hp": 79,
+                        "skill": "Moonbeam Hug"
+                    }
+                },
+                {
+                    "id": "68a",
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 76,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "ef",
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 83,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "id": "4z8k2",
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 82,
+                        "skill": "Fluffy Shield"
+                    }
+                },
+                {
+                    "id": "bbvsv",
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 84,
+                        "skill": "Candy Cloud"
+                    }
+                },
+                {
+                    "id": "has",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 94,
+                        "skill": "Magic Beam"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 11
+        },
+        "741353969216913520": {
+            "characters": [
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 79,
+                        "skill": "Sugar Puff"
+                    },
+                    "id": "6295"
+                }
+            ],
+            "last_claim": null
+        },
+        "597741221787467777": {
+            "characters": [
+                {
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 93,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "3351"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 85,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "6180"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 10,
+                        "hp": 92,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "3893"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 93,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "4858"
+                },
+                {
+                    "id": "9572",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 94,
+                        "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "s7y",
+                    "name": "Keroppi",
+                    "image": "Ker1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 6,
+                        "hp": 93,
+                        "skill": "Starry Blink"
+                    }
+                },
+                {
+                    "id": "04",
+                    "name": "Pochacco",
+                    "image": "Poch1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 6,
+                        "hp": 87,
+                        "skill": "Fuzzy Frenzy"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "655168137351790603": {
+            "characters": [
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 99,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "4409"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 92,
+                        "skill": "Sugar Sprinkle"
+                    },
+                    "id": "3943"
+                }
+            ],
+            "last_claim": null
+        },
+        "703001970834931764": {
+            "characters": [
+                {
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 87,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "5541"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 75,
+                        "skill": "Magic Beam"
+                    },
+                    "id": "5227"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 7,
+                        "hp": 99,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "4654"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 75,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "4279"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 82,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "4356"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 83,
+                        "skill": "Starry Blink"
+                    },
+                    "id": "3197"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 81,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "4033"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 100,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "1577"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 75,
+                        "skill": "Sparkle Dash"
+                    },
+                    "id": "9943"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 94,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "8165"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 96,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "3656"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 93,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "9355"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 94,
+                        "skill": "Candy Cloud"
+                    },
+                    "id": "7922"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 82,
+                        "skill": "Moonbeam Hug"
+                    },
+                    "id": "6871"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 91,
+                        "skill": "Starry Blink"
+                    },
+                    "id": "1944"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 79,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "2251"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 100,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "9502"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 13,
+                        "dodge": 7,
+                        "hp": 77,
+                        "skill": "Sparkle Dash"
+                    },
+                    "id": "3430"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 100,
+                        "skill": "Magic Beam"
+                    },
+                    "id": "3148"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 5,
+                        "hp": 85,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "5671"
+                }
+            ],
+            "last_claim": null
+        },
+        "972683605350445096": {
+            "characters": [
+                {
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 87,
+                        "skill": "Magic Beam"
+                    },
+                    "id": "8903"
+                }
+            ],
+            "last_claim": null
+        },
+        "1246466889912291339": {
+            "characters": [
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 10,
+                        "dodge": 5,
+                        "hp": 82,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "3344"
+                },
+                {
+                    "id": "jxk6",
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 81,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "x6wi",
+                    "name": "Keroppi",
+                    "image": "Ker1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 84,
+                        "skill": "Glitter Shot"
+                    }
+                },
+                {
+                    "id": "zp9wi",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 82,
+                        "skill": "Glitter Charm"
+                    }
+                },
+                {
+                    "id": "i",
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 75,
+                        "skill": "Glitter Shot"
+                    }
+                },
+                {
+                    "id": "qdyno",
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 89,
+                        "skill": "Cute Charm"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "1298699881598287913": {
+            "characters": [
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 10,
+                        "hp": 79,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "6928"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 75,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "5932"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 96,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "1737"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 85,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "7346"
+                }
+            ],
+            "last_claim": null
+        },
+        "258156626916147211": {
+            "characters": [
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 99,
+                        "skill": "Super Jump"
+                    },
+                    "id": "5173"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 85,
+                        "skill": "Twinkle Twirl"
+                    },
+                    "id": "7857"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 97,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "5306"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 10,
+                        "dodge": 5,
+                        "hp": 99,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "8002"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 95,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "5946"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 80,
+                        "skill": "Sugar Puff"
+                    },
+                    "id": "1505"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 80,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "2879"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 100,
+                        "skill": "Rainbow Burst"
+                    },
+                    "id": "4336"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 100,
+                        "skill": "Sugar Puff"
+                    },
+                    "id": "6040"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 84,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "1955"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 78,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "9409"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 8,
+                        "hp": 100,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "3676"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 92,
+                        "skill": "Snuggle Smash"
+                    },
+                    "id": "8772"
+                },
+                {
+                    "id": "4591",
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 98,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "5465",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 80,
+                        "skill": "Petal Dance"
+                    }
+                },
+                {
+                    "id": "9719",
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 13,
+                        "dodge": 7,
+                        "hp": 86,
+                        "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "2468",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 83,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "3018",
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 96,
+                        "skill": "Petal Dance"
+                    }
+                },
+                {
+                    "id": "5263",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 80,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "8973",
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 92,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "7680",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 95,
+                        "skill": "Rainbow Burst"
+                    }
+                },
+                {
+                    "id": "3673",
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 89,
+                        "skill": "Fuzzy Frenzy"
+                    }
+                },
+                {
+                    "id": "qug",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 75,
+                        "skill": "Sparkle Dash"
+                    }
+                },
+                {
+                    "id": "ca",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 91,
+                        "skill": "Fluffy Shield"
+                    }
+                },
+                {
+                    "id": "ur",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 5,
+                        "hp": 78,
+                        "skill": "Magic Beam"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 7
+        },
+        "1398019335494176819": {
+            "characters": [
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 85,
+                        "skill": "Twinkle Twirl"
+                    },
+                    "id": "9075"
+                }
+            ],
+            "last_claim": null
+        },
+        "358404825169395742": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 83,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "6822"
+                }
+            ],
+            "last_claim": null
+        },
+        "596702001182539777": {
+            "characters": [
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 79,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "4053"
+                }
+            ],
+            "last_claim": null
+        },
+        "246053833011232769": {
+            "characters": [
+                {
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 97,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "5265"
+                }
+            ],
+            "last_claim": null
+        },
+        "745671727073329212": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 7,
+                        "hp": 92,
+                        "skill": "Magic Beam"
+                    },
+                    "id": "8317"
+                }
+            ],
+            "last_claim": null
+        },
+        "821757719207739412": {
+            "characters": [
+                {
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 12,
+                        "dodge": 8,
+                        "hp": 76,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "4843"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 91,
+                        "skill": "Fuzzy Frenzy"
+                    },
+                    "id": "3877"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 13,
+                        "dodge": 7,
+                        "hp": 96,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "9686"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 89,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "8802"
+                },
+                {
+                    "id": "31d",
+                    "name": "My Melody",
+                    "image": "Mel2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 81,
+                        "skill": "Fuzzy Frenzy"
+                    }
+                },
+                {
+                    "id": "o6",
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 76,
+                        "skill": "Cherry Pop"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "943826562669764621": {
+            "characters": [
+                {
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 7,
+                        "hp": 86,
+                        "skill": "Fuzzy Frenzy"
+                    },
+                    "id": "2872"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 8,
+                        "hp": 96,
+                        "skill": "Twinkle Twirl"
+                    },
+                    "id": "4206"
+                }
+            ],
+            "last_claim": null
+        },
+        "881838364272238622": {
+            "characters": [
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 84,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "8149"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 10,
+                        "hp": 81,
+                        "skill": "Snuggle Smash"
+                    },
+                    "id": "8612"
+                },
+                {
+                    "id": "z9e",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 75,
+                        "skill": "Fuzzy Frenzy"
+                    }
+                },
+                {
+                    "id": "2kz",
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 79,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "u5p",
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 85,
+                        "skill": "Snuggle Smash"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 7
+        },
+        "320351249549623297": {
+            "characters": [
+                {
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 92,
+                        "skill": "Rainbow Burst"
+                    },
+                    "id": "9847"
+                }
+            ],
+            "last_claim": null
+        },
+        "420215218380079115": {
+            "characters": [],
+            "last_claim": null
+        },
+        "1406561593139134464": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 84,
+                        "skill": "Moonbeam Hug"
+                    },
+                    "id": "7226"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 98,
+                        "skill": "Candy Cloud"
+                    },
+                    "id": "6528"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 81,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "1208"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 91,
+                        "skill": "Fuzzy Frenzy"
+                    },
+                    "id": "4556"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 84,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "8491"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 93,
+                        "skill": "Fuzzy Frenzy"
+                    },
+                    "id": "7006"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 80,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "9196"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 95,
+                        "skill": "Candy Cloud"
+                    },
+                    "id": "9578"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 6,
+                        "hp": 94,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "2788"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 91,
+                        "skill": "Super Jump"
+                    },
+                    "id": "5767"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 84,
+                        "skill": "Twinkle Twirl"
+                    },
+                    "id": "7049"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 89,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "7893"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 13,
+                        "dodge": 7,
+                        "hp": 76,
+                        "skill": "Sugar Sprinkle"
+                    },
+                    "id": "9058"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 80,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "6919"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 99,
+                        "skill": "Petal Dance"
+                    },
+                    "id": "3863"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 93,
+                        "skill": "Twinkle Twirl"
+                    },
+                    "id": "3202"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 97,
+                        "skill": "Sugar Sprinkle"
+                    },
+                    "id": "1869"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 84,
+                        "skill": "Berry Blush"
+                    },
+                    "id": "3306"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 79,
+                        "skill": "Twinkle Twirl"
+                    },
+                    "id": "9658"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 81,
+                        "skill": "Rainbow Burst"
+                    },
+                    "id": "6046"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 98,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "7715"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 79,
+                        "skill": "Rainbow Burst"
+                    },
+                    "id": "8960"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 12,
+                        "dodge": 6,
+                        "hp": 80,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "5751"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 92,
+                        "skill": "Magic Beam"
+                    },
+                    "id": "7938"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 81,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "8922"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 92,
+                        "skill": "Magic Beam"
+                    },
+                    "id": "1106"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 9,
+                        "hp": 75,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "5399"
+                },
+                {
+                    "id": "75",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 78,
+                        "skill": "Candy Cloud"
+                    }
+                },
+                {
+                    "id": "cy4",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 95,
+                        "skill": "Cherry Pop"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "252151444738670592": {
+            "characters": [
+                {
+                    "name": "Kuromi",
+                    "image": "Kur3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 83,
+                        "skill": "Super Jump"
+                    },
+                    "id": "4333"
+                }
+            ],
+            "last_claim": null
+        },
+        "305011210447880204": {
+            "characters": [
+                {
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 8,
+                        "hp": 96,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "5181"
+                }
+            ],
+            "last_claim": null
+        },
+        "1214926950934515768": {
+            "characters": [
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 83,
+                        "skill": "Sugar Sprinkle"
+                    },
+                    "id": "4440"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 84,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "6303"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 76,
+                        "skill": "Starry Blink"
+                    },
+                    "id": "8823"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 6,
+                        "hp": 94,
+                        "skill": "Starry Blink"
+                    },
+                    "id": "2819"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 13,
+                        "dodge": 9,
+                        "hp": 85,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "8237"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 78,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "9634"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 92,
+                        "skill": "Moonbeam Hug"
+                    },
+                    "id": "6225"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 81,
+                        "skill": "Berry Blush"
+                    },
+                    "id": "8949"
+                },
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 6,
+                        "hp": 91,
+                        "skill": "Bubble Attack"
+                    },
+                    "id": "6189"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 91,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "3899"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 78,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "7722"
+                },
+                {
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 93,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "7065"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 97,
+                        "skill": "Moonbeam Hug"
+                    },
+                    "id": "4841"
+                }
+            ],
+            "last_claim": null
+        },
+        "760860682471866419": {
+            "characters": [
+                {
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 75,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "5176"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 78,
+                        "skill": "Starry Blink"
+                    },
+                    "id": "7825"
+                },
+                {
+                    "id": "9152",
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 10,
+                        "hp": 97,
+                        "skill": "Twinkle Twirl"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "419119546872627200": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 98,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "4499"
+                }
+            ],
+            "last_claim": null
+        },
+        "714097315031286060": {
+            "characters": [
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 95,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "2695"
+                }
+            ],
+            "last_claim": null
+        },
+        "1273130794323279977": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 78,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "9538"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 81,
+                        "skill": "Fluffy Shield"
+                    },
+                    "id": "2841"
+                },
+                {
+                    "id": "3551",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 79,
+                        "skill": "Starry Blink"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "716049411595173959": {
+            "characters": [
+                {
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 86,
+                        "skill": "Berry Blush"
+                    },
+                    "id": "8026"
+                }
+            ],
+            "last_claim": null
+        },
+        "441284951984570391": {
+            "characters": [
+                {
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 89,
+                        "skill": "Honey Drizzle"
+                    },
+                    "id": "5795"
+                }
+            ],
+            "last_claim": null
+        },
+        "1153101330068537344": {
+            "characters": [
+                {
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 85,
+                        "skill": "Rainbow Burst"
+                    },
+                    "id": "1281"
+                },
+                {
+                    "id": "vmp1",
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 100,
+                        "skill": "Honey Drizzle"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "776112971021549601": {
+            "characters": [
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 84,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "1969"
+                }
+            ],
+            "last_claim": null
+        },
+        "295352007684784140": {
+            "characters": [
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 95,
+                        "skill": "Super Jump"
+                    },
+                    "id": "4896"
+                }
+            ],
+            "last_claim": null
+        },
+        "587003990223486981": {
+            "characters": [
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 84,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "7187"
+                }
+            ],
+            "last_claim": null
+        },
+        "798098575921905664": {
+            "characters": [
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 86,
+                        "skill": "Fuzzy Frenzy"
+                    },
+                    "id": "3875"
+                }
+            ],
+            "last_claim": null
+        },
+        "349016496057483264": {
+            "characters": [
+                {
+                    "id": "9627",
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 89,
+                        "skill": "Petal Dance"
+                    }
+                },
+                {
+                    "id": "3030",
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 77,
+                        "skill": "Sugar Sprinkle"
+                    }
+                },
+                {
+                    "id": "7269",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 86,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "3335",
+                    "name": "Keroppi",
+                    "image": "Ker1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 95,
+                        "skill": "Honey Drizzle"
+                    }
+                },
+                {
+                    "id": "8933",
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 86,
+                        "skill": "Petal Dance"
+                    }
+                },
+                {
+                    "id": "3116",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 83,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "6875",
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 99,
+                        "skill": "Starry Blink"
+                    }
+                },
+                {
+                    "id": "3318",
+                    "name": "Kuromi",
+                    "image": "Kur4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 96,
+                        "skill": "Cherry Pop"
+                    }
+                },
+                {
+                    "id": "f4de",
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 89,
+                        "skill": "Sugar Puff"
+                    }
+                },
+                {
+                    "id": "bcx6",
+                    "name": "Keroppi",
+                    "image": "Ker2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 77,
+                        "skill": "Sugar Puff"
+                    }
+                },
+                {
+                    "id": "u97",
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 97,
+                        "skill": "Bubble Attack"
+                    }
+                },
+                {
+                    "id": "k",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 82,
+                        "skill": "Fluffy Shield"
+                    }
+                },
+                {
+                    "id": "8c",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 95,
+                        "skill": "Fuzzy Frenzy"
+                    }
+                },
+                {
+                    "id": "9ib0i",
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 10,
+                        "dodge": 8,
+                        "hp": 87,
+                        "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "u4w9",
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 90,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "7",
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 10,
+                        "dodge": 9,
+                        "hp": 97,
+                        "skill": "Glitter Shot"
+                    }
+                },
+                {
+                    "id": "x3yf",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 99,
+                        "skill": "Starry Blink"
+                    }
+                },
+                {
+                    "id": "cld",
+                    "name": "Keroppi",
+                    "image": "Ker4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 100,
+                        "skill": "Glitter Charm"
+                    }
+                },
+                {
+                    "id": "ry",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 91,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "mmbf",
+                    "name": "Keroppi",
+                    "image": "Ker3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 79,
+                        "skill": "Glitter Shot"
+                    }
+                },
+                {
+                    "id": "xse6",
+                    "name": "My Melody",
+                    "image": "Mel2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 12,
+                        "dodge": 9,
+                        "hp": 95,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "f7me",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 91,
+                        "skill": "Magic Beam"
+                    }
+                },
+                {
+                    "id": "rmue7",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 7,
+                        "hp": 80,
+                        "skill": "Fuzzy Frenzy"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 44
+        },
+        "698365927179419721": {
+            "characters": [
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 10,
+                        "dodge": 7,
+                        "hp": 76,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "1451"
+                }
+            ],
+            "last_claim": null
+        },
+        "279812290105180160": {
+            "characters": [
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 77,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "9310"
+                }
+            ],
+            "last_claim": null
+        },
+        "714819238183043113": {
+            "characters": [
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 91,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "6815"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 92,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "9215"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 89,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "2515"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 6,
+                        "hp": 85,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "4871"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 14,
+                        "dodge": 5,
+                        "hp": 79,
+                        "skill": "Candy Cloud"
+                    },
+                    "id": "5223"
+                },
+                {
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 92,
+                        "skill": "Sugar Sprinkle"
+                    },
+                    "id": "2089"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 88,
+                        "skill": "Super Jump"
+                    },
+                    "id": "5489"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 8,
+                        "hp": 87,
+                        "skill": "Cherry Pop"
+                    },
+                    "id": "9652"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 89,
+                        "skill": "Starry Blink"
+                    },
+                    "id": "8660"
+                },
+                {
+                    "name": "Hello Kitty",
+                    "image": "HK1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 5,
+                        "hp": 100,
+                        "skill": "Glitter Charm"
+                    },
+                    "id": "5606"
+                },
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin3.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 5,
+                        "hp": 76,
+                        "skill": "Twinkle Twirl"
+                    },
+                    "id": "5191"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 82,
+                        "skill": "Sparkle Dash"
+                    },
+                    "id": "8885"
+                }
+            ],
+            "last_claim": null
+        },
+        "1059932114717528174": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 13,
+                        "dodge": 9,
+                        "hp": 81,
+                        "skill": "Candy Cloud"
+                    },
+                    "id": "7736"
+                }
+            ],
+            "last_claim": null
+        },
+        "418838937625296898": {
+            "characters": [
+                {
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 13,
+                        "dodge": 7,
+                        "hp": 89,
+                        "skill": "Moonbeam Hug"
+                    },
+                    "id": "8384"
+                },
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 15,
+                        "dodge": 5,
+                        "hp": 90,
+                        "skill": "Super Jump"
+                    },
+                    "id": "3196"
+                },
+                {
+                    "id": "7m2",
+                    "name": "Kuromi",
+                    "image": "Kur2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 10,
+                        "dodge": 6,
+                        "hp": 78,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "md",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 76,
+                        "skill": "Fuzzy Frenzy"
+                    }
+                },
+                {
+                    "id": "ff23",
+                    "name": "My Melody",
+                    "image": "Mel2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 93,
+                        "skill": "Rainbow Burst"
+                    }
+                },
+                {
+                    "id": "1",
+                    "name": "My Melody",
+                    "image": "Mel1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 81,
+                        "skill": "Moonbeam Hug"
+                    }
+                },
+                {
+                    "id": "1zb",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 93,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "as",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 75,
+                        "skill": "Honey Drizzle"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 20
+        },
+        "1334442681442631720": {
+            "characters": [
+                {
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 8,
+                        "hp": 78,
+                        "skill": "Glitter Shot"
+                    },
+                    "id": "1122"
+                }
+            ],
+            "last_claim": null
+        },
+        "684889359421669436": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 10,
+                        "hp": 75,
+                        "skill": "Cute Charm"
+                    },
+                    "id": "6122"
+                }
+            ],
+            "last_claim": null
+        },
+        "808642442017505300": {
+            "characters": [],
+            "last_claim": null
+        },
+        "572602155215749126": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 97,
+                        "skill": "Purrfect Strike"
+                    },
+                    "id": "8830"
+                }
+            ],
+            "last_claim": null
+        },
+        "632389226926833675": {
+            "characters": [],
+            "last_claim": null
+        },
+        "611758602482614282": {
+            "characters": [
+                {
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 10,
+                        "hp": 96,
+                        "skill": "Glitter Charm"
+                    },
+                    "id": "2367"
+                },
+                {
+                    "name": "Pochacco",
+                    "image": "Poch4.jpg",
+                    "stats": {
+                        "strength": 14,
+                        "agility": 10,
+                        "dodge": 7,
+                        "hp": 92,
+                        "skill": "Paw Swipe"
+                    },
+                    "id": "4527"
+                }
+            ],
+            "last_claim": null
+        },
+        "1156042151390609559": {
+            "characters": [
+                {
+                    "id": "orwl",
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 12,
+                        "dodge": 7,
+                        "hp": 98,
+                        "skill": "Cherry Pop"
+                    }
+                },
+                {
+                    "id": "z",
+                    "name": "Pochacco",
+                    "image": "Poch3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 13,
+                        "dodge": 6,
+                        "hp": 77,
+                        "skill": "Fluffy Shield"
+                    }
+                },
+                {
+                    "id": "b349b",
+                    "name": "My Melody",
+                    "image": "Mel3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 7,
+                        "hp": 91,
+                        "skill": "Berry Blush"
+                    }
+                }
+            ],
+            "last_claim": null,
+            "date_points": 0
+        },
+        "597409120676741130": {
+            "characters": [
+                {
+                    "id": "t",
+                    "name": "Kuromi",
+                    "image": "Kur4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 11,
+                        "dodge": 5,
+                        "hp": 75,
+                        "skill": "Bubble Attack"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "705002366575050803": {
+            "characters": [
+                {
+                    "id": "mim",
+                    "name": "Cinnamoroll",
+                    "image": "Cin1.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 12,
+                        "dodge": 5,
+                        "hp": 88,
+                        "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "w",
+                    "name": "Cinnamoroll",
+                    "image": "Cin4.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 5,
+                        "hp": 99,
+                        "skill": "Paw Swipe"
+                    }
+                }
+            ],
+            "last_claim": null
+        },
+        "1066755630611828787": {
+            "characters": [
+                {
+                    "id": "s0ix",
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 9,
+                        "hp": 89,
+                        "skill": "Super Jump"
+                    }
+                }
+            ],
+            "last_claim": null
+        }
+    }
+}

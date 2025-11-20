@@ -613,41 +613,47 @@ class LeaderboardView(View):
         """
         super().__init__(timeout=None)
         self.leaderboard_data = leaderboard_data
+        self.ALLOWED_USERS = {296181275344109568, 1370076515429253264}
 
     @button(label="📋 Download Excel", style=discord.ButtonStyle.primary)
     async def download_excel(self, interaction: discord.Interaction, button: Button):
+        if interaction.user.id not in self.ALLOWED_USERS:
+            return await interaction.response.send_message(
+                "❌ You are not allowed to download this file.", ephemeral=True
+            )
         try:
             wb = openpyxl.Workbook()
             ws = wb.active
             ws.title = "Leaderboard"
 
             # Add headers
-            ws.append(["Discord User", "User ID", "Times Worked"])
+            ws.append(["Discord User", "User ID", "Times Worked", "Add Command"])
 
-            # Fill rows, User ID as string to prevent scientific notation
             for username, user_id, times in self.leaderboard_data:
-                ws.append([username, str(user_id), times])
 
-            # Format User ID column as text
+                command = f"/add name: <@{user_id}> tickets: {times}"
+                ws.append([username, str(user_id), times, command])
+
+
             for row in ws.iter_rows(min_row=2, min_col=2, max_col=2):
                 for cell in row:
                     cell.number_format = numbers.FORMAT_TEXT
-                    cell.alignment = Alignment(horizontal="left")  # left-align
-
-            # Left-align Times Worked column
-            for row in ws.iter_rows(min_row=2, min_col=3, max_col=3):
-                for cell in row:
                     cell.alignment = Alignment(horizontal="left")
 
-            # Save to BytesIO buffer
+
+            for col in [3, 4, 5]:
+                for row in ws.iter_rows(min_row=2, min_col=col, max_col=col):
+                    for cell in row:
+                        cell.alignment = Alignment(horizontal="left")
+
+
             buffer = BytesIO()
             wb.save(buffer)
             buffer.seek(0)
 
-            # Send Excel file
             file = discord.File(fp=buffer, filename="work_leaderboard.xlsx")
             await interaction.response.send_message(
-                "✅ Excel file generated!", file=file, ephemeral=True
+                "✅ Excel file with RaffleBot commands generated!", file=file, ephemeral=True
             )
 
         except Exception as e:
@@ -657,7 +663,7 @@ class LeaderboardView(View):
             )
 
 # -------------------------------
-# Worked command
+# Worked command (Option C)
 # -------------------------------
 @bot.command(name="worked")
 async def worked_command(ctx, days: int = 30):
@@ -679,88 +685,72 @@ async def worked_command(ctx, days: int = 30):
     user_counts = {}
     total_scanned = 0
     total_matched = 0
-    batch_index = 1
     progress_bar_length = 20
-    last_message = None
+    heartbeat_interval = 50  # edit progress every 50 messages
 
-    while True:
-        scanned = 0
-        matched = 0
+    progress_embed = discord.Embed(
+        title="🏗️ Scanning Messages...",
+        description=f"⏳ Scanning messages from the past {days} days...\nScanned: 0\nMatches: 0",
+        color=discord.Color.orange(),
+    )
+    progress_msg = await ctx.send(embed=progress_embed)
 
-        progress_embed = discord.Embed(
-            title=f"🏗️ Scanning Batch #{batch_index}...",
-            description=f"⏳ Scanning up to 5000 messages from the past {days} days...\nScanned: 0\nMatches: 0",
-            color=discord.Color.orange(),
-        )
-        progress_msg = await ctx.send(embed=progress_embed)
+    scanned_since_last_update = 0
 
-        async def heartbeat():
-            try:
-                while True:
-                    filled = min(progress_bar_length, (scanned % 1000) // 50)
-                    bar = "#" * filled + "-" * (progress_bar_length - filled)
-                    progress_embed.description = (
-                        f"⏳ Scanning Batch #{batch_index}...\n"
-                        f"**Progress:** [{bar}] Scanned: {total_scanned + scanned} messages\n"
-                        f"**Matches:** {total_matched + matched}"
-                    )
-                    await progress_msg.edit(embed=progress_embed)
-                    await asyncio.sleep(5)
-            except asyncio.CancelledError:
-                return
+    async for message in channel.history(limit=None, oldest_first=False):
+        # Skip messages outside timeframe
+        if message.created_at < since:
+            break
 
-        heartbeat_task = asyncio.create_task(heartbeat())
+        total_scanned += 1
+        scanned_since_last_update += 1
 
-        batch_limit = 5000
-        messages_in_batch = 0
+        # Skip messages without embeds
+        if not message.embeds:
+            continue
 
-        async for message in channel.history(limit=batch_limit, before=last_message, oldest_first=False):
-            messages_in_batch += 1
-            scanned += 1
-            total_scanned += 1
-            last_message = message
+        # Only count embeds from bots
+        if message.author.bot:
+            for e in message.embeds:
+                desc = strip_markdown(e.description.lower() if e.description else "")
+                if TARGET_PHRASE.lower() in desc:
+                    total_matched += 1
+                    original_desc = e.description or ""
 
-            if message.created_at < since:
-                heartbeat_task.cancel()
-                break
-
-            if message.author.bot:
-                for e in message.embeds:
-                    desc = strip_markdown(e.description.lower() if e.description else "")
-                    if TARGET_PHRASE in desc:
-                        matched += 1
-                        total_matched += 1
-                        original_desc = e.description or ""
-
-                        mentions = re.findall(MENTION_REGEX, original_desc)
+                    mentions = re.findall(MENTION_REGEX, original_desc)
+                    if mentions:
                         for user_id in mentions:
                             uid = int(user_id)
                             user_counts[uid] = user_counts.get(uid, 0) + 1
+                    else:
+                        usernames = re.findall(USERNAME_REGEX, original_desc)
+                        for username in usernames:
+                            member = discord.utils.find(
+                                lambda m: m.name.lower() == username.lower(), ctx.guild.members
+                            )
+                            if member:
+                                user_counts[member.id] = user_counts.get(member.id, 0) + 1
 
-                        if not mentions:
-                            usernames = re.findall(USERNAME_REGEX, original_desc)
-                            for username in usernames:
-                                member = discord.utils.find(
-                                    lambda m: m.name.lower() == username.lower(), ctx.guild.members
-                                )
-                                if member:
-                                    user_counts[member.id] = user_counts.get(member.id, 0) + 1
+        # Heartbeat batch update
+        if scanned_since_last_update >= heartbeat_interval:
+            scanned_since_last_update = 0
+            filled = min(progress_bar_length, (total_scanned % 1000) // 50)
+            bar = "#" * filled + "-" * (progress_bar_length - filled)
+            progress_embed.description = (
+                f"⏳ Scanning messages...\n"
+                f"**Progress:** [{bar}] Scanned: {total_scanned} messages\n"
+                f"**Matches:** {total_matched}"
+            )
+            await progress_msg.edit(embed=progress_embed)
 
-        heartbeat_task.cancel()
-
-        batch_summary = discord.Embed(
-            title=f"✅ Completed Batch #{batch_index}",
-            description=f"Scanned **{scanned}** messages, found **{matched}** completions.",
-            color=discord.Color.green() if matched else discord.Color.red(),
-        )
-        await progress_msg.edit(embed=batch_summary)
-
-        if messages_in_batch < batch_limit or (last_message and last_message.created_at < since):
-            break
-
-        batch_index += 1
-        await ctx.send(f"📦 Continuing to Batch #{batch_index}...")
-        await asyncio.sleep(1)
+    # Final update
+    filled = progress_bar_length
+    bar = "#" * filled
+    progress_embed.description = (
+        f"✅ Scan complete!\nScanned {total_scanned} messages.\n"
+        f"Found {total_matched} successful completions."
+    )
+    await progress_msg.edit(embed=progress_embed)
 
     if not total_matched:
         embed = discord.Embed(
@@ -770,10 +760,8 @@ async def worked_command(ctx, days: int = 30):
         )
         return await ctx.send(embed=embed)
 
-    # Sort users by times worked
+    # Prepare leaderboard
     sorted_users = sorted(user_counts.items(), key=lambda x: x[1], reverse=True)
-
-    # Prepare data for Excel: (username, user_id, times_worked)
     leaderboard_data = []
     leaderboard_preview_lines = []
 
@@ -781,7 +769,7 @@ async def worked_command(ctx, days: int = 30):
         member = ctx.guild.get_member(user_id)
         username = member.display_name if member else f"<@{user_id}>"
         leaderboard_data.append((username, user_id, count))
-        if i <= 10:  # preview first 10 for embed
+        if i <= 10:
             leaderboard_preview_lines.append(f"**#{i}** {username} — {count} times")
 
     preview_text = "\n".join(leaderboard_preview_lines) or "No valid users found."
@@ -797,7 +785,6 @@ async def worked_command(ctx, days: int = 30):
 
     view = LeaderboardView(leaderboard_data)
     await ctx.send(embed=final_embed, view=view)
-
 
 
 
