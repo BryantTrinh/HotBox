@@ -121,17 +121,17 @@ class BattleSystem(commands.Cog):
         user_id = str(ctx.author.id)
 
         async with self.data_lock:
-            # Ensure player exists
+
             player = self.data["players"].setdefault(user_id, {"characters": [], "last_claim": None})
 
-            # Pick a character base + specific image
+           
             character_base = random.choice(CHARACTERS)
             character_image = random.choice(CHARACTER_IMAGES[character_base])
 
-            # Generate stats
+            
             final_stats = random_stats()
 
-            # Ensure unique ID across all characters
+            
             all_ids = {
                 c.get("id")
                 for p in self.data.get("players", {}).values()
@@ -140,7 +140,7 @@ class BattleSystem(commands.Cog):
             }
             new_id = generate_unique_id(all_ids)
 
-            # Store character
+            
             new_char = {
                 "id": new_id,
                 "name": character_base,
@@ -150,7 +150,7 @@ class BattleSystem(commands.Cog):
             player["characters"].append(new_char)
             save_data(self.data)
 
-        # Animation embed
+        
         embed = discord.Embed(
             title="<a:gacharoll:1422434663934197760> **Sanrio Gacha Roll**",
             description=f"{ctx.author.mention}, rolling your character...",
@@ -170,7 +170,7 @@ class BattleSystem(commands.Cog):
             await msg.edit(embed=embed, attachments=[file])
             await asyncio.sleep(0.3)
 
-        # Final result embed
+        
         embed = discord.Embed(
             title="<a:gacharoll:1422434663934197760> Sanrio Gacha Result",
             description=f"{ctx.author.mention}, you got **{new_char['name']}** (#{new_char['id']})!",
@@ -184,7 +184,7 @@ class BattleSystem(commands.Cog):
         await msg.edit(embed=embed, attachments=[file])
 
 # -----------------------------
-# Give Character (Paginated Dropdown)
+# Give Character
 # -----------------------------
     @commands.command(name="give")
     async def give(self, ctx, target: discord.Member):
@@ -198,7 +198,7 @@ class BattleSystem(commands.Cog):
             receiver = self.data["players"].setdefault(receiver_id, {"characters": [], "last_claim": None})
 
         characters = giver["characters"]
-        PAGE_SIZE = 5  # Discord select menu limit
+        PAGE_SIZE = 5
 
         # -----------------------------
         # Main Give View
@@ -209,7 +209,7 @@ class BattleSystem(commands.Cog):
                 self.selected_index = None
                 self.page = 0
                 self.embed_message = None
-                self.choice = None  # "give" or "cancel"
+                self.choice = None
                 self.update_dropdown()
 
             def update_dropdown(self):
@@ -226,11 +226,11 @@ class BattleSystem(commands.Cog):
                 ]
                 self.dropdown = CharSelect(options, self)
                 self.add_item(self.dropdown)
-                # Add navigation buttons if multiple pages
+                
                 if len(characters) > PAGE_SIZE:
                     self.add_item(PrevPageButton(self))
                     self.add_item(NextPageButton(self))
-                # Add confirm/cancel
+                
                 self.add_item(ConfirmButton(self))
                 self.add_item(CancelButton(self))
 
@@ -249,7 +249,7 @@ class BattleSystem(commands.Cog):
                 self.view_ref.selected_index = int(self.values[0])
                 char = characters[self.view_ref.selected_index]
 
-                # Update preview
+                
                 embed = discord.Embed(
                     title=f"🎁 Giving {char['name']} (#{char['id']})",
                     description=f"Select ✅ to give this character to {target.mention}, or ❌ to cancel.",
@@ -301,7 +301,7 @@ class BattleSystem(commands.Cog):
                 if self.view_ref.selected_index is None:
                     return await interaction.response.send_message("❌ Select a character first.", ephemeral=True)
 
-                # Disable everything (including dropdown)
+                
                 for item in self.view_ref.children:
                     item.disabled = True
                 await interaction.response.edit_message(view=self.view_ref)
@@ -318,7 +318,7 @@ class BattleSystem(commands.Cog):
                 if interaction.user.id != ctx.author.id:
                     return await interaction.response.send_message("❌ This button isn't for you.", ephemeral=True)
 
-                # Disable everything
+                
                 for item in self.view_ref.children:
                     item.disabled = True
                 await interaction.response.edit_message(view=self.view_ref)
@@ -382,7 +382,7 @@ class BattleSystem(commands.Cog):
         challenger_id = str(ctx.author.id)
         opponent_id = str(opponent.id)
 
-        # Prevent multiple battles
+        
         if challenger_id in self.active_battles:
             return await ctx.send("❌ You are already in a battle!")
         if opponent_id in self.active_battles:
@@ -393,12 +393,10 @@ class BattleSystem(commands.Cog):
         if opponent_id not in self.data["players"] or not self.data["players"][opponent_id]["characters"]:
             return await ctx.send("❌ Your opponent doesn’t have any characters!")
 
-        # Mark active
         self.active_battles[challenger_id] = True
         self.active_battles[opponent_id] = True
 
         try:
-            # Step 1: Challenge confirmation
             confirm_embed = discord.Embed(
                 title="<a:HelloKittyFight:1422422183598100611> Battle Challenge!",
                 description=f"{opponent.mention}, do you accept the battle challenge from {ctx.author.mention}?\nYou have 10 seconds to respond.",
@@ -444,14 +442,14 @@ class BattleSystem(commands.Cog):
                     return await ctx.send(f"❌ Battle cancelled. {view.decliner.mention} declined.")
 
             # -----------------------------
-            # Step 2: Character selection (independent for each player)
+            # Step 2: Character selection 
             # -----------------------------
             async def select_character(user_id, user_obj):
                 characters = self.data["players"][user_id]["characters"]
 
                 class CharSelect(discord.ui.Select):
                     def __init__(self, parent_view):
-                        self.parent_view = parent_view  # keep reference to this specific view
+                        self.parent_view = parent_view
                         options = [
                             discord.SelectOption(
                                 label=f"{c['name']} (#{c['id']})",
@@ -473,7 +471,7 @@ class BattleSystem(commands.Cog):
                                 f"❌ Only {user_obj.display_name} can use this menu.", ephemeral=True
                             )
                         self.parent_view.selected_index = int(self.values[0])
-                        # disable only this view's children
+                        
                         for item in self.parent_view.children:
                             item.disabled = True
                         await interaction.response.edit_message(view=self.parent_view)
@@ -481,7 +479,7 @@ class BattleSystem(commands.Cog):
 
                 class CharSelectView(discord.ui.View):
                     def __init__(self):
-                        super().__init__(timeout=None)  # never auto-disable
+                        super().__init__(timeout=None)
                         self.selected_index = None
                         self.add_item(CharSelect(self))
 
@@ -492,16 +490,12 @@ class BattleSystem(commands.Cog):
                     color=discord.Color.blurple()
                 )
 
-                # Send each player's message independently
                 msg = await ctx.channel.send(content=user_obj.mention, embed=embed, view=view)
-                await view.wait()  # wait until this specific user selects
-
-                # Don't delete the message — keep it visible
+                await view.wait()
                 if view.selected_index is None:
                     raise asyncio.TimeoutError(f"{user_obj.display_name} did not select a character in time.")
                 return characters[view.selected_index]
 
-            # Run both selections concurrently
             try:
                 challenger_task = asyncio.create_task(select_character(challenger_id, ctx.author))
                 opponent_task = asyncio.create_task(select_character(opponent_id, opponent))
@@ -635,7 +629,6 @@ class BattleSystem(commands.Cog):
             elif target.isdigit():
                 user_obj = ctx.guild.get_member(int(target))
                 if not user_obj:
-                    # User not in guild, use placeholder object
                     user_obj = discord.Object(id=int(target))
                 user_id = str(target)
             else:
@@ -658,7 +651,7 @@ class BattleSystem(commands.Cog):
         preloaded_files = []
         fallback_img = os.path.join(IMAGE_FOLDER, "Hello-Kitty.jpg")
         for char in characters:
-            img_file = char.get("image")  # Use stored image
+            img_file = char.get("image")
             img_path = os.path.join(IMAGE_FOLDER, img_file) if img_file else fallback_img
             if not os.path.exists(img_path):
                 img_path = fallback_img
@@ -1116,7 +1109,6 @@ class BattleSystem(commands.Cog):
                 increases[stat] = inc
             effect_text = "💎 Stats increased:\n" + "\n".join(f"{k.title()}: +{v}" for k, v in increases.items())
 
-        # Deduct points
         player["date_points"] -= item_data["cost"]
         save_data(self.data)
 

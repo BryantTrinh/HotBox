@@ -1,0 +1,74 @@
+{
+    "prizes": {
+        "bit_frame": {
+            "name": "\ud83d\uddbc\ufe0f Bit Frame of Your Choice",
+            "rarity": "Common",
+            "color": 11053224,
+            "chance": 30,
+            "flavor": "\ud83d\uddbc\ufe0f *A simple but stylish cosmetic reward.*",
+            "description": "_Choose any Bit Frame \u2013 claim via ticket._",
+            "remaining": 6
+        },
+        "free_dye_job": {
+            "name": "\ud83c\udfa8 Free Regular Dye Job",
+            "rarity": "Common",
+            "color": 11053224,
+            "chance": 30,
+            "flavor": "\ud83c\udfa8 *A splash of color to freshen things up.*",
+            "description": "_Free Regular Dye job \u2013 claim via ticket._",
+            "remaining": 6
+        },
+        "bit_roulette": {
+            "name": "\ud83c\udfb2 Bit Roulette",
+            "rarity": "Uncommon",
+            "color": 4510076,
+            "chance": 20,
+            "flavor": "\ud83c\udfb2 *Luck swirls around you as the wheel spins\u2026*",
+            "description": "_Roll between 5k\u201310k bits on the bot._",
+            "remaining": 4
+        },
+        "rewind_choice": {
+            "name": "\ud83d\udd04 Rewind My Choice",
+            "rarity": "Rare",
+            "color": 5017087,
+            "chance": 10,
+            "flavor": "\ud83d\udd04 *A rare token infused with time-bending magic\u2026*",
+            "description": "_Undo your last decision during the Main Event._",
+            "remaining": 3
+        },
+        "one_free_box": {
+            "name": "\ud83d\udce6 One Free Mystery Box",
+            "rarity": "Ultra Rare",
+            "color": 10637823,
+            "chance": 7,
+            "flavor": "\ud83d\udce6 *A shimmering box materializes beside you\u2026 for free.*",
+            "description": "_Open one free mystery box with no follow-up offers or rewinds._",
+            "remaining": 1
+        },
+        "golden_mystery_bag": {
+            "name": "\u2728\ud83d\udcb0 Golden Mystery Bag",
+            "rarity": "Secret Rare",
+            "color": 16238659,
+            "chance": 3,
+            "flavor": "\u2728 *The Golden Mystery Bag radiates a blinding glow\u2026*",
+            "description": "_Guaranteed prize worth at least 35 tickets._",
+            "remaining": 1
+        }
+    },
+    "winners": [
+        {
+            "user_id": 296181275344109568,
+            "prize_key": "bit_roulette",
+            "prize_name": "\ud83c\udfb2 Bit Roulette",
+            "timestamp": "2025-12-06T18:41:36.408583+00:00",
+            "message_id": 1446934615188177091,
+            "channel_id": 1420560553008697474
+        }
+    ],
+    "meta": {
+        "sent_today": 0,
+        "max_boxes_today": 4,
+        "first_spawn_time": 1765132756.626582,
+        "cycle_reset_time": 1765219156.626582
+    }
+}

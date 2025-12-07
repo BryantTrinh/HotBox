@@ -349,6 +349,30 @@
                         "hp": 78,
                         "skill": "Petal Dance"
                     }
+                },
+                {
+                    "id": "6h4",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 14,
+                        "dodge": 9,
+                        "hp": 78,
+                        "skill": "Paw Swipe"
+                    }
+                },
+                {
+                    "id": "sho",
+                    "name": "Cinnamoroll",
+                    "image": "Cin2.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 96,
+                        "skill": "Glitter Shot"
+                    }
                 }
             ],
             "last_claim": null,
@@ -759,6 +783,18 @@
                         "dodge": 5,
                         "hp": 81,
                         "skill": "Super Jump"
+                    }
+                },
+                {
+                    "id": "d4ykk",
+                    "name": "Pompompurin",
+                    "image": "Pom2.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 97,
+                        "skill": "Honey Drizzle"
                     }
                 }
             ],
@@ -1600,6 +1636,54 @@
                         "dodge": 6,
                         "hp": 89,
                         "skill": "Cute Charm"
+                    }
+                },
+                {
+                    "id": "vc",
+                    "name": "My Melody",
+                    "image": "Mel4.jpg",
+                    "stats": {
+                        "strength": 11,
+                        "agility": 12,
+                        "dodge": 10,
+                        "hp": 76,
+                        "skill": "Candy Cloud"
+                    }
+                },
+                {
+                    "id": "hut2",
+                    "name": "Hello Kitty",
+                    "image": "HK4.jpg",
+                    "stats": {
+                        "strength": 12,
+                        "agility": 11,
+                        "dodge": 9,
+                        "hp": 86,
+                        "skill": "Purrfect Strike"
+                    }
+                },
+                {
+                    "id": "6lv",
+                    "name": "Kuromi",
+                    "image": "Kur1.jpg",
+                    "stats": {
+                        "strength": 15,
+                        "agility": 15,
+                        "dodge": 7,
+                        "hp": 84,
+                        "skill": "Glitter Charm"
+                    }
+                },
+                {
+                    "id": "o",
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 13,
+                        "dodge": 8,
+                        "hp": 94,
+                        "skill": "Magic Beam"
                     }
                 }
             ],
@@ -2590,6 +2674,30 @@
                         "dodge": 6,
                         "hp": 95,
                         "skill": "Cherry Pop"
+                    }
+                },
+                {
+                    "id": "zcij",
+                    "name": "Hello Kitty",
+                    "image": "HK3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 10,
+                        "dodge": 7,
+                        "hp": 75,
+                        "skill": "Twinkle Twirl"
+                    }
+                },
+                {
+                    "id": "fv",
+                    "name": "Pompompurin",
+                    "image": "Pom3.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 14,
+                        "dodge": 8,
+                        "hp": 86,
+                        "skill": "Candy Cloud"
                     }
                 }
             ],
@@ -3615,6 +3723,18 @@
                         "dodge": 8,
                         "hp": 75,
                         "skill": "Honey Drizzle"
+                    }
+                },
+                {
+                    "id": "928p",
+                    "name": "Hello Kitty",
+                    "image": "HK2.jpg",
+                    "stats": {
+                        "strength": 13,
+                        "agility": 15,
+                        "dodge": 6,
+                        "hp": 98,
+                        "skill": "Rainbow Burst"
                     }
                 }
             ],

@@ -5,7 +5,6 @@ from discord.ui import View, Button, button
 from discord import Interaction
 import random
 from datetime import datetime, timedelta, timezone
-import datetime
 import os
 from dotenv import load_dotenv
 import asyncio
@@ -16,6 +15,26 @@ import openpyxl
 from io import BytesIO
 from openpyxl.styles import numbers, Alignment
 
+# ----------------------------
+# Footer Helper
+# ----------------------------
+
+def add_embed_footer(embed: discord.Embed) -> discord.Embed:
+    footer_line = "*Luna ❀⋆ coded by <@296181275344109568>*"
+
+    # Remove old footer line from description if present
+    if embed.description:
+        embed.description = embed.description.replace(f"\n\n{footer_line}", "")
+
+    # Append cleanly
+    if embed.description:
+        embed.description += f"\n\n{footer_line}"
+    else:
+        embed.description = footer_line
+
+    return embed
+
+
 # -------------------------------
 # LOAD ENVIRONMENT VARIABLES
 # -------------------------------
@@ -25,10 +44,10 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # -------------------------------
 # CONFIG
 # -------------------------------
-#--- booster ch: 1420601193222111233
-TARGET_CHANNEL_IDS = [1420560553008697474, 1420601193222111233, 1422420786635079701]  # multiple channels
+
+TARGET_CHANNEL_IDS = [1420560553008697474, 1420601193222111233, 1422420786635079701]
 COMMAND_PREFIX = "!"
-COOLDOWN_SECONDS = 14 * 24 * 60 * 60  # 14 days in seconds
+COOLDOWN_SECONDS = 14 * 24 * 60 * 60
 DATA_FILE = "loot_data.json"
 LOOT_EMOJIS = {
     "Tickets": "🎟️",
@@ -38,7 +57,7 @@ LOOT_EMOJIS = {
     "Mint Dust": "🍃",
     "Unopened Dye": "🎨"
 }
-# User IDs who bypass cooldown
+
 COOLDOWN_BYPASS_USERS = {296181275344109568, 1370076515429253264, 547733449818243084}
 
 LOOT_TABLE = [
@@ -62,14 +81,15 @@ bot = commands.Bot(
     command_prefix=COMMAND_PREFIX,
     intents=intents,
     help_command=None,
-    case_insensitive=True
+    case_insensitive=True,
+    application_id=1420292731942731776
 )
 
 # -------------------------------
 # DATA STORAGE
 # -------------------------------
-user_cooldowns = {}  # user_id: datetime (UTC aware)
-user_loot_history = {}  # user_id: list of (item, value, timestamp)
+user_cooldowns = {}
+user_loot_history = {}
 
 def load_data():
     global user_cooldowns, user_loot_history
@@ -80,19 +100,19 @@ def load_data():
                 data = json.loads(raw_data)
                 
             user_cooldowns = {
-                int(k): datetime.datetime.fromisoformat(v).astimezone(datetime.timezone.utc)
+                int(k): datetime.fromisoformat(v).astimezone(timezone.utc)
                 for k, v in data.get("cooldowns", {}).items()
             }
             user_loot_history = {
                 int(k): [
-                    (i, v, datetime.datetime.fromisoformat(t).astimezone(datetime.timezone.utc))
+                    (i, v, datetime.fromisoformat(t).astimezone(timezone.utc))
                     for i, v, t in v_list
                 ]
                 for k, v_list in data.get("history", {}).items()
             }
 
         except json.JSONDecodeError as e:
-            print(f"[WARNING] loot_data.json is corrupted: {e}. Attempting partial recovery...")
+            print(f"[WARNING] loot_data.json is corrupted: {e}. Attempting recovery...")
             try:
                 recovered_data = None
                 for line in raw_data.splitlines():
@@ -101,23 +121,24 @@ def load_data():
                         break
                     except:
                         continue
+
                 if recovered_data:
                     user_cooldowns = {
-                        int(k): datetime.datetime.fromisoformat(v).astimezone(datetime.timezone.utc)
+                        int(k): datetime.fromisoformat(v).astimezone(timezone.utc)
                         for k, v in recovered_data.get("cooldowns", {}).items()
                     }
                     user_loot_history = {
                         int(k): [
-                            (i, v, datetime.datetime.fromisoformat(t).astimezone(datetime.timezone.utc))
+                            (i, v, datetime.fromisoformat(t).astimezone(timezone.utc))
                             for i, v, t in v_list
                         ]
                         for k, v_list in recovered_data.get("history", {}).items()
                     }
-                    print("[INFO] Successfully recovered partial data.")
+                    print("[INFO] Partial data restored.")
                 else:
-                    print("[ERROR] Could not recover any data. Please fix loot_data.json manually.")
+                    print("[ERROR] Could not recover any data.")
             except Exception as ex:
-                print(f"[ERROR] Failed to recover data: {ex}")
+                print(f"[ERROR] Failed recovery: {ex}")
 
 def save_data():
     data = {
@@ -152,34 +173,31 @@ def roll_loot():
 # -------------------------------
 # EVENTS
 # -------------------------------
-# @bot.event
-# async def on_ready():
-#     print(f"{bot.user} has connected to Discord!")
-#     for guild in bot.guilds:
-#         for channel_id in TARGET_CHANNEL_IDS:
-#             channel = guild.get_channel(channel_id)
-#             if channel:
-#                 await channel.send(f"{bot.user.mention} is now online!")
+@bot.event
+async def on_ready():
+    # Register persistent views once (for tickets)
+    if not getattr(bot, "persistent_views_registered", False):
+        from jobboard import MilestoneTicketView
+        print("[PersistentViews] Registering MilestoneTicketView globally...")
+        bot.add_view(MilestoneTicketView())  # No args; metadata comes from embed footer
+        bot.persistent_views_registered = True
+        print("[PersistentViews] Registered.")
 
-# # -------------------------------
-# # OFFLINE NOTIFICATION
-# # -------------------------------
-# async def notify_offline():
-#     for guild in bot.guilds:
-#         for channel_id in TARGET_CHANNEL_IDS:
-#             channel = guild.get_channel(channel_id)
-#             if channel:
-#                 try:
-#                     await channel.send(f"{bot.user.mention} is now offline!")
-#                 except Exception as e:
-#                     print(f"Failed to send offline message to {channel_id}: {e}")
+    # Sync application commands once
+    if not getattr(bot, "synced", False):
+        bot.tree.copy_global_to(guild=None)
+        await bot.tree.sync()
+        bot.synced = True
+        print("Slash commands synced!")
+
+    print(f"Bot is ready as {bot.user}")
+
 
 # -------------------------------
 # COMMAND HELPERS
 # -------------------------------
 def find_member_by_name_or_id(guild, query: str):
     query_lower = query.lower()
-
 
     if query.startswith("<@") and query.endswith(">"):
         try:
@@ -188,10 +206,8 @@ def find_member_by_name_or_id(guild, query: str):
         except ValueError:
             return None
 
-
     if query.isdigit():
         return guild.get_member(int(query))
-
 
     for member in guild.members:
         if query_lower in member.display_name.lower() or query_lower in member.name.lower():
@@ -219,10 +235,11 @@ class DoubleOrNothingView(View):
             while self.remaining > 0:
                 await asyncio.sleep(1)
                 self.remaining -= 1
-                if self.ended:  
+                if self.ended:
                     return
                 if self.interaction_message and any(not child.disabled for child in self.children):
                     embed = self.build_embed()
+                    embed = add_embed_footer(embed)
                     await self.interaction_message.edit(embed=embed, view=self)
 
             if not self.ended and self.interaction_message:
@@ -231,28 +248,32 @@ class DoubleOrNothingView(View):
                     child.disabled = True
                 await self.interaction_message.edit(view=self)
 
-                if self.value > 0:
-                    result_text = f"{self.ctx.author.mention} safely kept **{self.value} {self.item}**."
-                    gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422085281632489514/CFB31F85-BD99-423B-9BE8-7973659FC0C7.gif"
-                    result_embed = discord.Embed(
-                        title="Double or Nothing Result",
-                        description=result_text + "\n\nCreate a ticket to claim your prize in <#1412934283613700136>",
-                        color=0xFFC5D3
-                    )
-                    result_embed.set_image(url=gif_url)
-                    await self.interaction_message.edit(embed=result_embed, view=None)
+                result_text = f"{self.ctx.author.mention} safely kept **{self.value} {self.item}** (Auto Timeout)."
+                gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422085281632489514/CFB31F85-BD99-423B-9BE8-7973659FC0C7.gif"
 
-                    user_loot_history.setdefault(self.user_id, []).append(
-                        (self.item, self.value, self.timestamp)
-                    )
-                    save_data()
+                timeout_embed = discord.Embed(
+                    title="Double or Nothing Result",
+                    description=result_text + "\n\nCreate a ticket to claim your prize in <#1412934283613700136>",
+                    color=0xFFC5D3
+                )
+                timeout_embed.set_image(url=gif_url)
+                timeout_embed = add_embed_footer(timeout_embed)
+                await self.interaction_message.edit(embed=timeout_embed, view=None)
 
+                emoji = "⏳"
+                label = "Timeout Keep"
+                hist_item = f"{emoji} {label} — {self.value} {self.item}"
+
+                user_loot_history.setdefault(self.user_id, []).append(
+                    (hist_item, self.value, self.timestamp)
+                )
+                save_data()
 
         except Exception as e:
             print(f"[Timer error] {e}")
 
     def build_embed(self):
-        return discord.Embed(
+        embed = discord.Embed(
             title="🎰 Double or Nothing?",
             description=(
                 f"{self.ctx.author.mention}, you won **{self.value} {self.item}!**\n\n"
@@ -263,8 +284,16 @@ class DoubleOrNothingView(View):
             ),
             color=0xFFC5D3
         )
+        return add_embed_footer(embed)
 
-    async def show_result_embed(self, interaction: Interaction, result_text: str, gif_url: str):
+    async def show_result_embed(self, interaction: Interaction, result_text: str, gif_url: str, outcome_tag: str):
+        """
+        outcome_tag must be one of:
+        🎉 Doubled
+        💀 Lost in Double
+        🍀 Kept
+        ⏳ Timeout Keep
+        """
         self.ended = True
         for child in self.children:
             child.disabled = True
@@ -279,13 +308,18 @@ class DoubleOrNothingView(View):
             color=0xFFC5D3
         )
         result_embed.set_image(url=gif_url)
+        result_embed = add_embed_footer(result_embed)
         await interaction.response.edit_message(embed=result_embed, view=None)
-        if self.value > 0:
-            user_loot_history.setdefault(self.user_id, []).append(
-                (self.item, self.value, self.timestamp)
-            )
-            save_data()
 
+        emoji = outcome_tag.split()[0]
+        label = outcome_tag.split(maxsplit=1)[1]
+
+        hist_item = f"{emoji} {label} — {self.value} {self.item}"
+
+        user_loot_history.setdefault(self.user_id, []).append(
+            (hist_item, self.value, self.timestamp)
+        )
+        save_data()
 
     @button(label="🎲 Double", style=discord.ButtonStyle.success)
     async def double_button(self, interaction: Interaction, button: Button):
@@ -296,12 +330,14 @@ class DoubleOrNothingView(View):
             self.value *= 2
             result_text = f"🎉 {interaction.user.mention} doubled their reward! Now **{self.value} {self.item}**"
             gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422038487569268747/120AEC33-8409-4DDF-9EA3-D6C95DC0D030.gif"
+            outcome = "🎉 Doubled"
         else:
             self.value = 0
             result_text = f"💀 {interaction.user.mention} lost it all!"
             gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422040286791733409/IMG_9535.gif"
+            outcome = "💀 Lost in Double"
 
-        await self.show_result_embed(interaction, result_text, gif_url)
+        await self.show_result_embed(interaction, result_text, gif_url, outcome)
 
     @button(label="🍀 Keep", style=discord.ButtonStyle.secondary)
     async def safe_button(self, interaction: Interaction, button: Button):
@@ -310,8 +346,9 @@ class DoubleOrNothingView(View):
 
         result_text = f"{interaction.user.mention} safely kept **{self.value} {self.item}**."
         gif_url = "https://cdn.discordapp.com/attachments/1420560553008697474/1422085281632489514/CFB31F85-BD99-423B-9BE8-7973659FC0C7.gif"
-        await self.show_result_embed(interaction, result_text, gif_url)
+        outcome = "🍀 Kept"
 
+        await self.show_result_embed(interaction, result_text, gif_url, outcome)
 
 
 # -------------------------------
@@ -324,18 +361,16 @@ async def open_lootbox(ctx):
             return
 
         user_id = ctx.author.id
-        now = datetime.datetime.now(datetime.timezone.utc)
+        now = datetime.now(timezone.utc)
 
         member = ctx.guild.get_member(user_id)
         if member is None:
             member = await ctx.guild.fetch_member(user_id)
 
         if user_id not in COOLDOWN_BYPASS_USERS:
-
             if not member.premium_since:
                 await ctx.send("❌ You must be boosting the server to open a lootbox.")
                 return
-
 
         if user_id in pending_retries:
             pending_retries.remove(user_id)
@@ -373,24 +408,19 @@ async def open_lootbox(ctx):
             await message.edit(embed=spin_embed)
             await asyncio.sleep(0.2)
 
-
         spin_embed.description = f"| {final_emoji}   {final_emoji}   {final_emoji} |"
         await message.edit(embed=spin_embed)
         await asyncio.sleep(0.5)
 
         view = DoubleOrNothingView(ctx, user_id, item, value, now)
         don_embed = view.build_embed()
+        don_embed = add_embed_footer(don_embed)
         view.interaction_message = await ctx.send(embed=don_embed, view=view)
         asyncio.create_task(view.start_timer())
 
     except Exception:
-        import traceback
         traceback.print_exc()
 
-
-#
-# History command
-#
 
 @bot.command(name="history")
 async def loot_history(ctx, *, query: str = None):
@@ -422,7 +452,7 @@ async def loot_history(ctx, *, query: str = None):
             end_index = start_index + items_per_page
             page_items = history[start_index:end_index]
 
-            lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {value} {item}"
+            lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {item}"
                      for item, value, ts in page_items]
 
             embed = discord.Embed(
@@ -431,7 +461,7 @@ async def loot_history(ctx, *, query: str = None):
                 color=0xFFDBE5,
             )
             embed.set_thumbnail(url=thumbnail_url)
-
+            embed = add_embed_footer(embed)
             self.previous.disabled = self.current_page == 0
             self.next.disabled = self.current_page == total_pages - 1
 
@@ -451,7 +481,7 @@ async def loot_history(ctx, *, query: str = None):
 
     view = LootHistoryView()
     page_items = history[:items_per_page]
-    lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {value} {item}" for item, value, ts in page_items]
+    lines = [f"{ts.strftime('%Y-%m-%d %H:%M:%S')}: {item}" for item, value, ts in page_items]
 
     embed = discord.Embed(
         title=f"{target.display_name}'s Loot History (Page 1/{total_pages})",
@@ -459,11 +489,13 @@ async def loot_history(ctx, *, query: str = None):
         color=0xFFDBE5,
     )
     embed.set_thumbnail(url=thumbnail_url)
+    embed = add_embed_footer(embed)
     await ctx.send(embed=embed, view=view)
+
 
 @bot.command(name="cooldown", aliases=["cd"])
 async def check_cooldown(ctx, *, query: str = None):
-    now = datetime.datetime.now(datetime.timezone.utc)
+    now = datetime.now(timezone.utc)
 
     if query:
         target = find_member_by_name_or_id(ctx.guild, query)
@@ -484,7 +516,7 @@ async def check_cooldown(ctx, *, query: str = None):
     if elapsed >= COOLDOWN_SECONDS:
         await ctx.send(f"{target.mention} can open a lootbox right now!")
     else:
-        next_time = last_open + datetime.timedelta(seconds=COOLDOWN_SECONDS)
+        next_time = last_open + timedelta(seconds=COOLDOWN_SECONDS)
         unix_time = int(next_time.timestamp())
         formatted_time = f"<t:{unix_time}:f>"
 
@@ -497,7 +529,13 @@ async def check_cooldown(ctx, *, query: str = None):
             value=f"{target.mention} can open another chest on: {formatted_time}",
             inline=False,
         )
+        embed.add_field(
+            name="\u200b",
+            value="*Luna ❀⋆ coded by <@296181275344109568>*",
+            inline=False,
+        )
         await ctx.send(embed=embed)
+
 
 @bot.command(name="help")
 async def help_command(ctx):
@@ -512,7 +550,9 @@ async def help_command(ctx):
     embed.add_field(name="!help", value="Show this help message with all available commands.", inline=False)
     embed.add_field(name="!prize", value="This shows list of available prizes.", inline=False)
     embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1420560553008697474/1420613932288180265/IMG_9442.jpg")
+    embed = add_embed_footer(embed)
     await ctx.send(embed=embed)
+
 
 @bot.command(name="prize")
 async def prize_command(ctx):
@@ -530,71 +570,13 @@ async def prize_command(ctx):
     embed.set_thumbnail(
         url="https://cdn.discordapp.com/attachments/1420560553008697474/1420993021972840468/IMG_9468.gif"
     )
+    embed = add_embed_footer(embed)
     await ctx.send(embed=embed)
-
-# -----------------------------
-# Count event points for electaura/draculauara by counting only forwarded messages and checking their those role id
-# -----------------------------
-
-@bot.command(name="eventpoints")
-async def event_points(ctx):
-    """Count how many forwarded messages each team posted in the #event-points channel."""
-    try:
-
-        EVENT_CHANNEL_ID = 1424139439126614167
-        TEAM_DRACULAURA = 1423871865541234732
-        TEAM_ELECTRAURA = 1423864199943028788
-
-        channel = ctx.guild.get_channel(EVENT_CHANNEL_ID)
-        if channel is None:
-            return await ctx.send("❌ Could not find the event-points channel.")
-
-        drac_count = 0
-        elect_count = 0
-        total_messages = 0
-        forwarded_messages = 0
-
-        loading_msg = await ctx.send("🔍 Scanning **forwarded** messages in #event-points... please wait!")
-
-        async for message in channel.history(limit=None):
-            total_messages += 1
-
-            if not getattr(message.flags, "forwarded", False):
-                continue
-            forwarded_messages += 1
-
-            member = message.author
-            if not isinstance(member, discord.Member):
-                try:
-                    member = await ctx.guild.fetch_member(member.id)
-                except:
-                    continue
-
-            if discord.utils.get(member.roles, id=TEAM_DRACULAURA):
-                drac_count += 1
-            elif discord.utils.get(member.roles, id=TEAM_ELECTRAURA):
-                elect_count += 1
-
-        embed = discord.Embed(
-            title="🎯 Event Points Summary",
-            description=f"Counted only **forwarded** messages in {channel.mention}",
-            color=0xFFC5D3
-        )
-        embed.add_field(name="🩷 Team Draculaura", value=f"{drac_count:,} forwarded messages", inline=False)
-        embed.add_field(name="⚡ Team Electraura", value=f"{elect_count:,} forwarded messages", inline=False)
-        embed.set_footer(text=f"Forwarded messages checked: {forwarded_messages:,} (out of {total_messages:,} total)")
-
-        await loading_msg.edit(content=None, embed=embed)
-
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        await ctx.send(f"⚠️ An error occurred: {e}")
 
 
 # ------------------------------- 
-#Work mechanic 
-#  ------------------------------- 
+# Work mechanic 
+# ------------------------------- 
 MENTION_REGEX = r"<@!?(\d+)>"
 USERNAME_REGEX = r"@(\w+)"
 
@@ -626,26 +608,25 @@ class LeaderboardView(View):
             ws = wb.active
             ws.title = "Leaderboard"
 
-            # Add headers
             ws.append(["Discord User", "User ID", "Times Worked", "Add Command"])
 
             for username, user_id, times in self.leaderboard_data:
-
-                command = f"/add name: <@{user_id}> tickets: {times}"
+                clean_username = strip_markdown(username)
+                command = f"/add name: clanlottery tickets: {times} user: <@{user_id}>"
                 ws.append([username, str(user_id), times, command])
 
+                cmd_cell = ws.cell(row=ws.max_row, column=4)
+                cmd_cell.number_format = "@"
 
             for row in ws.iter_rows(min_row=2, min_col=2, max_col=2):
                 for cell in row:
                     cell.number_format = numbers.FORMAT_TEXT
                     cell.alignment = Alignment(horizontal="left")
 
-
-            for col in [3, 4, 5]:
+            for col in [3, 4]:
                 for row in ws.iter_rows(min_row=2, min_col=col, max_col=col):
                     for cell in row:
                         cell.alignment = Alignment(horizontal="left")
-
 
             buffer = BytesIO()
             wb.save(buffer)
@@ -662,31 +643,34 @@ class LeaderboardView(View):
                 "❌ Failed to generate Excel file.", ephemeral=True
             )
 
-# -------------------------------
-# Worked command (Option C)
-# -------------------------------
+
+# -------------------------------------
+# WORKED COMMAND
+# -------------------------------------
 @bot.command(name="worked")
 async def worked_command(ctx, days: int = 30):
     ALLOWED_USERS = {1370076515429253264, 296181275344109568}
-    WORK_CHANNEL_ID = 1435858707782307933
+    WORK_CHANNEL_ID = 1444398245320196117
     TARGET_PHRASE = "your workers have finished their tasks"
 
     if ctx.author.id not in ALLOWED_USERS:
         return await ctx.send("❌ You do not have permission to use this command.")
 
-    if days < 1 or days > 90:
-        return await ctx.send("❌ Please provide a number of days between 1 and 90.")
+    if not (1 <= days <= 90):
+        return await ctx.send("❌ Please provide a number between 1 and 90.")
 
     channel = ctx.guild.get_channel(WORK_CHANNEL_ID)
     if not channel:
         return await ctx.send("❌ Could not find the target work channel.")
 
-    since = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=days)
+    since = datetime.now(timezone.utc) - timedelta(days=days)
+
     user_counts = {}
     total_scanned = 0
     total_matched = 0
-    progress_bar_length = 20
-    heartbeat_interval = 50  # edit progress every 50 messages
+
+    PROGRESS_BAR_LENGTH = 20
+    HEARTBEAT_INTERVAL = 50
 
     progress_embed = discord.Embed(
         title="🏗️ Scanning Messages...",
@@ -698,18 +682,16 @@ async def worked_command(ctx, days: int = 30):
     scanned_since_last_update = 0
 
     async for message in channel.history(limit=None, oldest_first=False):
-        # Skip messages outside timeframe
+
         if message.created_at < since:
             break
 
         total_scanned += 1
         scanned_since_last_update += 1
 
-        # Skip messages without embeds
         if not message.embeds:
             continue
 
-        # Only count embeds from bots
         if message.author.bot:
             for e in message.embeds:
                 desc = strip_markdown(e.description.lower() if e.description else "")
@@ -719,23 +701,24 @@ async def worked_command(ctx, days: int = 30):
 
                     mentions = re.findall(MENTION_REGEX, original_desc)
                     if mentions:
-                        for user_id in mentions:
-                            uid = int(user_id)
+                        for uid in mentions:
+                            uid = int(uid)
                             user_counts[uid] = user_counts.get(uid, 0) + 1
                     else:
                         usernames = re.findall(USERNAME_REGEX, original_desc)
                         for username in usernames:
                             member = discord.utils.find(
-                                lambda m: m.name.lower() == username.lower(), ctx.guild.members
+                                lambda m: m.name.lower() == username.lower(),
+                                ctx.guild.members
                             )
                             if member:
                                 user_counts[member.id] = user_counts.get(member.id, 0) + 1
 
-        # Heartbeat batch update
-        if scanned_since_last_update >= heartbeat_interval:
+        if scanned_since_last_update >= HEARTBEAT_INTERVAL:
             scanned_since_last_update = 0
-            filled = min(progress_bar_length, (total_scanned % 1000) // 50)
-            bar = "#" * filled + "-" * (progress_bar_length - filled)
+            filled = min(PROGRESS_BAR_LENGTH, (total_scanned % 1000) // 50)
+            bar = "#" * filled + "-" * (PROGRESS_BAR_LENGTH - filled)
+
             progress_embed.description = (
                 f"⏳ Scanning messages...\n"
                 f"**Progress:** [{bar}] Scanned: {total_scanned} messages\n"
@@ -743,59 +726,65 @@ async def worked_command(ctx, days: int = 30):
             )
             await progress_msg.edit(embed=progress_embed)
 
-    # Final update
-    filled = progress_bar_length
-    bar = "#" * filled
+    bar = "#" * PROGRESS_BAR_LENGTH
     progress_embed.description = (
-        f"✅ Scan complete!\nScanned {total_scanned} messages.\n"
+        f"✅ Scan complete!\n"
+        f"Scanned {total_scanned} messages.\n"
         f"Found {total_matched} successful completions."
     )
     await progress_msg.edit(embed=progress_embed)
 
-    if not total_matched:
+    if total_matched == 0:
         embed = discord.Embed(
             title="📭 No Work Completions Found",
-            description=f"Scanned **{total_scanned}** messages in the past {days} days.\nNo matches found.",
+            description=f"Scanned **{total_scanned}** messages.\nNo matches found.",
             color=discord.Color.red(),
         )
         return await ctx.send(embed=embed)
 
-    # Prepare leaderboard
+    filtered_counts = {}
+    for user_id, count in user_counts.items():
+        if ctx.guild.get_member(user_id):
+            filtered_counts[user_id] = count
+
+    user_counts = filtered_counts
+
     sorted_users = sorted(user_counts.items(), key=lambda x: x[1], reverse=True)
+
     leaderboard_data = []
-    leaderboard_preview_lines = []
+    preview_lines = []
 
     for i, (user_id, count) in enumerate(sorted_users, start=1):
         member = ctx.guild.get_member(user_id)
         username = member.display_name if member else f"<@{user_id}>"
-        leaderboard_data.append((username, user_id, count))
-        if i <= 10:
-            leaderboard_preview_lines.append(f"**#{i}** {username} — {count} times")
 
-    preview_text = "\n".join(leaderboard_preview_lines) or "No valid users found."
+        leaderboard_data.append((username, user_id, count))
+
+        if i <= 10:
+            preview_lines.append(f"**#{i}** {username} — {count} times")
+
+    preview_text = "\n".join(preview_lines) or "No valid users found."
 
     final_embed = discord.Embed(
         title=f"🏆 Work Leaderboard (Past {days} Days)",
         description=(
-            f"✅ Scan complete!\nScanned **{total_scanned}** messages.\n"
-            f"Found **{total_matched}** successful completions.\n\n{preview_text}"
+            f"✅ Scan complete!\n"
+            f"Scanned **{total_scanned}** messages.\n"
+            f"Found **{total_matched}** completions.\n\n"
+            f"{preview_text}"
         ),
         color=discord.Color.green(),
     )
 
     view = LeaderboardView(leaderboard_data)
+    final_embed = add_embed_footer(final_embed)
     await ctx.send(embed=final_embed, view=view)
-
 
 
 # -------------------------------
 # RETRY MECHANIC
 # -------------------------------
-#--- bry: 296181275344109568, luv 1370076515429253264
-# User IDs allowed to give retries
 RETRY_WHITELIST = {1370076515429253264, 296181275344109568}
-
-
 pending_retries = set()
 
 @bot.command(name="retry")
@@ -804,13 +793,10 @@ async def retry_command(ctx, target: discord.Member):
     if ctx.author.id not in RETRY_WHITELIST:
         return await ctx.send("❌ You are not allowed to give retries.")
 
-
     pending_retries.add(target.id)
     await ctx.send(f"✅ {target.mention} can now use `!open` again immediately (cooldown bypass once).")
 
-#
-# Inspect Karuta
-#
+
 @bot.command(name="inspectkaruta")
 async def inspect_karuta(ctx):
     """Inspect the last few messages from the Karuta bot to see embed structure."""
@@ -831,23 +817,21 @@ async def inspect_karuta(ctx):
         print("No bot messages with embeds found.")
     await ctx.send("✅ Printed last few Karuta embeds to console/logs.")
 
+
 # -------------------------------
 # RUN BOT
 # -------------------------------
 async def main():
-    try:
-        async with bot:
+    async with bot:
+        await bot.load_extension("jobboard")
+        await bot.load_extension("sanriot")
+        await bot.load_extension("deal")
+        await bot.load_extension("lists")
+        await bot.load_extension("daddy")
+        await bot.start(TOKEN)
 
-            await bot.load_extension("sanriot")
-
-
-            await bot.start(TOKEN)
-    finally:
-        await notify_offline()
+        print("Tree Commands Loaded:", [cmd.name for cmd in bot.tree.get_commands()])
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-
-

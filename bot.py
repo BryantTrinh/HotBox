@@ -19,9 +19,9 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # CONFIG
 # -------------------------------
 #--- booster ch: 1420601193222111233
-TARGET_CHANNEL_IDS = [1420560553008697474, 1420601193222111233]  # multiple channels
+TARGET_CHANNEL_IDS = [1420560553008697474, 1420601193222111233]
 COMMAND_PREFIX = "!"
-COOLDOWN_SECONDS = 14 * 24 * 60 * 60  # 14 days in seconds
+COOLDOWN_SECONDS = 14 * 24 * 60 * 60
 DATA_FILE = "loot_data.json"
 LOOT_EMOJIS = {
     "Tickets": "🎟️",
@@ -31,10 +31,10 @@ LOOT_EMOJIS = {
     "Mint Dust": "🍃",
     "Unopened Dye": "🎨"
 }
-# User IDs who bypass cooldown
+
 COOLDOWN_BYPASS_USERS = {296181275344109568, 1370076515429253264, 547733449818243084}
 
-# Loot table with chances (%) and reward ranges
+
 LOOT_TABLE = [
     ("Tickets", (1, 5), 5),
     ("Bits", (500, 1000), 30),
@@ -55,15 +55,15 @@ intents.members = True
 bot = commands.Bot(
     command_prefix=COMMAND_PREFIX,
     intents=intents,
-    help_command=None,  # disable default help so custom one works
+    help_command=None,
     case_insensitive=True
 )
 
 # -------------------------------
 # DATA STORAGE
 # -------------------------------
-user_cooldowns = {}  # user_id: datetime (UTC aware)
-user_loot_history = {}  # user_id: list of (item, value, timestamp)
+user_cooldowns = {}
+user_loot_history = {}
 
 def load_data():
     global user_cooldowns, user_loot_history
@@ -71,7 +71,6 @@ def load_data():
         try:
             with open(DATA_FILE, "r") as f:
                 raw_data = f.read()
-                # Attempt to parse JSON
                 data = json.loads(raw_data)
                 
             user_cooldowns = {
@@ -89,7 +88,7 @@ def load_data():
         except json.JSONDecodeError as e:
             print(f"[WARNING] loot_data.json is corrupted: {e}. Attempting partial recovery...")
             try:
-                # Try to extract first valid JSON object
+                
                 recovered_data = None
                 for line in raw_data.splitlines():
                     try:
@@ -126,7 +125,7 @@ def save_data():
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-# Load data on startup
+
 load_data()
 
 # -------------------------------
@@ -140,7 +139,7 @@ def roll_loot():
     reward_item = random.choices(items, weights=weights, k=1)[0]
     low, high = ranges[reward_item]
 
-    # Skew towards lower numbers
+   
     exp = 3
     u = random.random() ** exp
     reward_value = low + int(u * (high - low))
@@ -178,7 +177,7 @@ async def notify_offline():
 def find_member_by_name_or_id(guild, query: str):
     query_lower = query.lower()
 
-    # --- Check if mention ---
+   
     if query.startswith("<@") and query.endswith(">"):
         try:
             user_id = int(query.strip("<@!>"))
@@ -186,11 +185,11 @@ def find_member_by_name_or_id(guild, query: str):
         except ValueError:
             return None
 
-    # --- Check if numeric ID ---
+    
     if query.isdigit():
         return guild.get_member(int(query))
 
-    # --- Strict partial match (case-insensitive) ---
+   
     for member in guild.members:
         if query_lower in member.display_name.lower() or query_lower in member.name.lower():
             return member
@@ -210,7 +209,7 @@ class DoubleOrNothingView(View):
         self.timestamp = timestamp
         self.interaction_message = None
         self.remaining = 30
-        self.ended = False  # Track if result already handled
+        self.ended = False
 
     async def start_timer(self):
         try:
@@ -221,7 +220,7 @@ class DoubleOrNothingView(View):
                     embed = self.build_embed()
                     await self.interaction_message.edit(embed=embed, view=self)
 
-            # Timer reached 0 — auto "Keep"
+            
             if not self.ended and self.interaction_message:
                 self.ended = True
                 for child in self.children:
@@ -239,7 +238,7 @@ class DoubleOrNothingView(View):
                 result_embed.set_image(url=gif_url)
                 await self.interaction_message.edit(embed=result_embed, view=None)
 
-                # Save to history
+                
                 user_loot_history.setdefault(self.user_id, []).append(
                     (self.item, self.value, self.timestamp)
                 )
@@ -322,14 +321,14 @@ async def open_lootbox(ctx):
         user_id = ctx.author.id
         now = datetime.datetime.now(datetime.timezone.utc)
 
-        # --- Fetch the full Member object ---
+       
         member = ctx.guild.get_member(user_id)
         if member is None:
             member = await ctx.guild.fetch_member(user_id)
 
-        # --- Check Nitro booster / bypass users ---
+        
         if user_id not in COOLDOWN_BYPASS_USERS:
-            # Use server boost status
+            
             if not member.premium_since:
                 await ctx.send("❌ You must be boosting the server to open a lootbox.")
                 return
@@ -535,10 +534,10 @@ async def prize_command(ctx):
 # RETRY MECHANIC
 # -------------------------------
 
-# User IDs allowed to give retries
+
 RETRY_WHITELIST = {1370076515429253264, 296181275344109568}
 
-# Track pending retries for users
+
 pending_retries = set()
 
 @bot.command(name="retry")
