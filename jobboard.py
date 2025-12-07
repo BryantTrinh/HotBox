@@ -214,7 +214,6 @@ class MilestoneTicketView(discord.ui.View):
             "Staff will press **✔️ Confirm Milestone** after manually trading the reward."
         )
 
-        # Do NOT reapply Luna footer here (reward embeds NEVER show Luna)
         embed.set_footer(text=f"OwnerID: {self.ticket_owner_id} | Milestone: {self.milestone}")
 
         await msg.edit(embed=embed, view=self)
@@ -248,7 +247,7 @@ class MilestoneTicketView(discord.ui.View):
             f"📘 Milestone **{self.milestone}** confirmed for <@{self.ticket_owner_id}> — Reward: **{reward_text}**."
         )
 
-        # Disable buttons
+
         for child in self.children:
             if child.custom_id in ("milestone_bits", "milestone_tickets", "milestone_confirm"):
                 child.disabled = True
@@ -371,7 +370,6 @@ async def handle_milestone_selection(interaction, member, milestone_name):
 
     await ticket_channel.send(f"<@&{MILESTONE_PING_ROLE_ID}>", embed=base_embed)
 
-    # Reward embed (NO LUNA FOOTER)
     reward_info = REWARD_OPTIONS[milestone_name]
     reward_embed = discord.Embed(
         title="🎁 Claim Your Reward",
@@ -587,7 +585,7 @@ async def milestone_command(ctx: commands.Context):
             "⛔ You must have the Jobboard/Yume role to use this command."
         )
 
-    # Determine which milestones remain
+
     completed = get_confirmed_milestones_for_user(member.id)
     remaining = [
         name for _, (name, _) in MILESTONE_EMOJIS.items()
@@ -603,7 +601,7 @@ async def milestone_command(ctx: commands.Context):
         embed = add_embed_footer(embed)
         return await ctx.send(embed=embed)
 
-    # Build the selection embed
+
     embed = discord.Embed(
         title="Job Board Milestones Rewards",
         description=(

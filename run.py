@@ -22,11 +22,11 @@ from openpyxl.styles import numbers, Alignment
 def add_embed_footer(embed: discord.Embed) -> discord.Embed:
     footer_line = "*Luna ❀⋆ coded by <@296181275344109568>*"
 
-    # Remove old footer line from description if present
+
     if embed.description:
         embed.description = embed.description.replace(f"\n\n{footer_line}", "")
 
-    # Append cleanly
+
     if embed.description:
         embed.description += f"\n\n{footer_line}"
     else:
