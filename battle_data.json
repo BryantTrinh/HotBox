@@ -3422,6 +3422,18 @@
                         "hp": 80,
                         "skill": "Fuzzy Frenzy"
                     }
+                },
+                {
+                    "id": "0jm",
+                    "name": "Pochacco",
+                    "image": "Poch1.jpg",
+                    "stats": {
+                        "strength": 10,
+                        "agility": 11,
+                        "dodge": 10,
+                        "hp": 87,
+                        "skill": "Glitter Shot"
+                    }
                 }
             ],
             "last_claim": null,

@@ -67,8 +67,8 @@
     ],
     "meta": {
         "sent_today": 0,
-        "max_boxes_today": 4,
-        "first_spawn_time": 1765132756.626582,
-        "cycle_reset_time": 1765219156.626582
+        "max_boxes_today": 3,
+        "first_spawn_time": 1765237171.728141,
+        "cycle_reset_time": 1765323571.728141
     }
 }
