@@ -7,7 +7,7 @@
             "chance": 30,
             "flavor": "\ud83d\uddbc\ufe0f *A simple but stylish cosmetic reward.*",
             "description": "_Choose any Bit Frame \u2013 claim via ticket._",
-            "remaining": 6
+            "remaining": 10
         },
         "free_dye_job": {
             "name": "\ud83c\udfa8 Free Regular Dye Job",
@@ -16,7 +16,7 @@
             "chance": 30,
             "flavor": "\ud83c\udfa8 *A splash of color to freshen things up.*",
             "description": "_Free Regular Dye job \u2013 claim via ticket._",
-            "remaining": 6
+            "remaining": 7
         },
         "bit_roulette": {
             "name": "\ud83c\udfb2 Bit Roulette",
@@ -25,7 +25,7 @@
             "chance": 20,
             "flavor": "\ud83c\udfb2 *Luck swirls around you as the wheel spins\u2026*",
             "description": "_Roll between 5k\u201310k bits on the bot._",
-            "remaining": 4
+            "remaining": 5
         },
         "rewind_choice": {
             "name": "\ud83d\udd04 Rewind My Choice",
@@ -43,32 +43,23 @@
             "chance": 7,
             "flavor": "\ud83d\udce6 *A shimmering box materializes beside you\u2026 for free.*",
             "description": "_Open one free mystery box with no follow-up offers or rewinds._",
-            "remaining": 1
+            "remaining": 2
         },
-        "golden_mystery_bag": {
-            "name": "\u2728\ud83d\udcb0 Golden Mystery Bag",
+        "golden_door": {
+            "name": "\u2728\ud83d\udeaa Golden Door",
             "rarity": "Secret Rare",
             "color": 16238659,
             "chance": 3,
-            "flavor": "\u2728 *The Golden Mystery Bag radiates a blinding glow\u2026*",
+            "flavor": "\u2728 *The Golden Door radiates a blinding glow\u2026*",
             "description": "_Guaranteed prize worth at least 35 tickets._",
             "remaining": 1
         }
     },
-    "winners": [
-        {
-            "user_id": 296181275344109568,
-            "prize_key": "bit_roulette",
-            "prize_name": "\ud83c\udfb2 Bit Roulette",
-            "timestamp": "2025-12-06T18:41:36.408583+00:00",
-            "message_id": 1446934615188177091,
-            "channel_id": 1420560553008697474
-        }
-    ],
+    "winners": [],
     "meta": {
-        "sent_today": 0,
+        "sent_today": 1,
         "max_boxes_today": 3,
-        "first_spawn_time": 1765237171.728141,
-        "cycle_reset_time": 1765323571.728141
+        "first_spawn_time": 1766256514.396634,
+        "cycle_reset_time": 1766342914.396634
     }
 }

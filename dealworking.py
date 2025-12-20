@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 # Footer Helper
 # ----------------------------
 def add_embed_footer(embed: discord.Embed) -> discord.Embed:
-    footer_line = "*⋆ ˚｡⋆୨ 𝓜𝓲𝓭𝓪𝓼 ୧⋆ ˚｡⋆ coded by <@296181275344109568>*"
+    footer_line = "\n\n*Luna ❀⋆ coded by <@296181275344109568>*"
 
     if embed.description:
         embed.description += footer_line
@@ -27,7 +27,7 @@ def add_embed_footer(embed: discord.Embed) -> discord.Embed:
 # Whitelists and Channels
 # -----------------------------
 WHITELIST = [296181275344109568, 1370076515429253264, 320351249549623297]
-ALLOWED_CHANNELS = [1420560553008697474, 1284631100609662989]  # test channel(s)
+ALLOWED_CHANNELS = {1420560553008697474}  # test channel(s)
 
 DATA_FILE = "deal_data.json"
 BOX_EMOJI = "🎁"
@@ -363,12 +363,11 @@ class DealOrNoDeal(commands.Cog):
             print(f"[Deal] Channel {channel_id} not found.")
             return
 
-        # ✅ CHANGED: 10 seconds -> 30 seconds
         embed = discord.Embed(
             title="🎁 A Mystery Box Appears!",
             description=(
                 "A mysterious **mystery box** has appeared!\n\n"
-                f"React with {BOX_EMOJI} within **30 seconds**.\n"
+                f"React with {BOX_EMOJI} within **10 seconds**.\n"
                 "_First to react with the emoji opens the box and wins the prize inside._"
             ),
             color=0xF1DBB6,
@@ -412,9 +411,7 @@ class DealOrNoDeal(commands.Cog):
 
         winner = None
         loop = asyncio.get_running_loop()
-
-        # ✅ CHANGED: 10 seconds -> 30 seconds
-        end_time = loop.time() + 30
+        end_time = loop.time() + 10
 
         while True:
             timeout = end_time - loop.time()
@@ -786,6 +783,7 @@ class DealOrNoDeal(commands.Cog):
                 "• If you win a **big prize** (Rewind / Free Mystery Box / Golden Door),\n"
                 "  you must **skip the next drop**.\n"
                 "• Each 24-hour cycle has a random limit of **2–5 claimed boxes**.\n"
+                "• **Whitelist members** can always win (testing mode)."
             ),
             inline=False,
         )
@@ -794,7 +792,7 @@ class DealOrNoDeal(commands.Cog):
 
         embed.add_field(
             name="\u200b",
-            value="*⋆ ˚｡⋆୨ 𝓜𝓲𝓭𝓪𝓼 ୧⋆ ˚｡⋆ coded by <@296181275344109568>*",
+            value="*Luna ❀⋆ coded by <@296181275344109568>*",
             inline=False,
         )
 
