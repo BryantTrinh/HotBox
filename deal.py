@@ -27,7 +27,7 @@ def add_embed_footer(embed: discord.Embed) -> discord.Embed:
 # Whitelists and Channels
 # -----------------------------
 WHITELIST = [296181275344109568, 1370076515429253264, 320351249549623297]
-ALLOWED_CHANNELS = [1420560553008697474, 1284631100609662989]  # test channel(s)
+BOX_DROP_CHANNEL_ID = 1284631100609662989  # test channel(s)
 
 DATA_FILE = "deal_data.json"
 BOX_EMOJI = "🎁"
@@ -357,10 +357,9 @@ class DealOrNoDeal(commands.Cog):
             )
             return
 
-        channel_id = random.choice(list(ALLOWED_CHANNELS))
-        channel = self.bot.get_channel(channel_id)
+        channel = self.bot.get_channel(BOX_DROP_CHANNEL_ID)
         if channel is None:
-            print(f"[Deal] Channel {channel_id} not found.")
+            print(f"[Deal] Drop channel {BOX_DROP_CHANNEL_ID} not found.")
             return
 
         # ✅ CHANGED: 10 seconds -> 30 seconds
