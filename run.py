@@ -825,7 +825,6 @@ async def inspect_karuta(ctx):
 async def main():
     async with bot:
         await bot.load_extension("jobboard")
-        await bot.load_extension("sanriot")
         await bot.load_extension("lists")
         await bot.load_extension("daddy")
         await bot.start(TOKEN)
