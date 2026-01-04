@@ -1,0 +1,175 @@
+{
+    "claims": [
+        {
+            "user_id": 418838937625296898,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-03T22:11:48.554799+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 418838937625296898,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-03T22:22:32.739596+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 1406561593139134464,
+            "milestone": "1200 Effort",
+            "timestamp": "2025-12-05T07:38:15.406311+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 5
+            }
+        },
+        {
+            "user_id": 1241478139595718657,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-05T11:59:35.688599+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 296181275344109568,
+            "milestone": "1200 Effort",
+            "timestamp": "2025-12-07T19:39:44.317680+00:00",
+            "reward": {
+                "type": "bits",
+                "amount": null
+            }
+        },
+        {
+            "user_id": 296181275344109568,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-07T19:40:12.206765+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 629717328455532555,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-08T22:56:27.508972+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 778778602518216725,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-09T02:53:41.036383+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 432138906989756417,
+            "milestone": "1200 Effort",
+            "timestamp": "2025-12-21T04:40:57.994849+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 5
+            }
+        },
+        {
+            "user_id": 534622726053167104,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-22T16:56:47.743020+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 720820753318150175,
+            "milestone": "2000 Effort",
+            "timestamp": "2025-12-23T08:28:32.289451+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 10
+            }
+        },
+        {
+            "user_id": 744331826658672730,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-23T20:37:28.799224+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 673778872101371914,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-25T04:56:15.634742+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 825312847922855938,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-25T05:13:26.246957+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 1412043557845336154,
+            "milestone": "1200 Effort",
+            "timestamp": "2025-12-25T07:19:30.356302+00:00",
+            "reward": {
+                "type": "bits",
+                "amount": 5
+            }
+        },
+        {
+            "user_id": 1206999521184452620,
+            "milestone": "1200 Effort",
+            "timestamp": "2025-12-26T20:08:36.766106+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 5
+            }
+        },
+        {
+            "user_id": 283053786920910850,
+            "milestone": "1500 Effort",
+            "timestamp": "2025-12-27T05:33:15.328975+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 7
+            }
+        },
+        {
+            "user_id": 746858596951916656,
+            "milestone": "1200 Effort",
+            "timestamp": "2026-01-03T03:23:14.923349+00:00",
+            "reward": {
+                "type": "bits",
+                "amount": null
+            }
+        },
+        {
+            "user_id": 860358404400611379,
+            "milestone": "1200 Effort",
+            "timestamp": "2026-01-04T14:14:52.663325+00:00",
+            "reward": {
+                "type": "tickets",
+                "amount": 5
+            }
+        }
+    ]
+}
