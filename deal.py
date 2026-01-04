@@ -23,18 +23,28 @@ def add_embed_footer(embed: discord.Embed) -> discord.Embed:
     return embed
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f48a669246a2c7c9f9e4d09ba5385ee7c1a6989
 # -----------------------------
 # Whitelists and Channels
 # -----------------------------
 WHITELIST = [296181275344109568, 1370076515429253264, 320351249549623297]
+<<<<<<< HEAD
 
 BOX_DROP_CHANNEL_ID = 1284631100609662989  # ONLY spawn boxes here
+=======
+BOX_DROP_CHANNEL_ID = 1284631100609662989  # test channel(s)
+>>>>>>> 8f48a669246a2c7c9f9e4d09ba5385ee7c1a6989
 
 DATA_FILE = "deal_data.json"
 BOX_EMOJI = "🎁"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f48a669246a2c7c9f9e4d09ba5385ee7c1a6989
 # -----------------------------
 # Back-to-back / Skip rules
 # -----------------------------
@@ -365,8 +375,11 @@ class DealOrNoDeal(commands.Cog):
             print(f"[Deal] Drop channel {BOX_DROP_CHANNEL_ID} not found.")
             return
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8f48a669246a2c7c9f9e4d09ba5385ee7c1a6989
         # ✅ CHANGED: 10 seconds -> 30 seconds
         embed = discord.Embed(
             title="🎁 A Mystery Box Appears!",
@@ -562,11 +575,18 @@ class DealOrNoDeal(commands.Cog):
             return
 
         if self.next_spawn is None:
+<<<<<<< HEAD
             self.next_spawn = now + timedelta(hours=random.randint(1, 12))
             print(f"[Deal] Next spawn scheduled at {self.next_spawn.isoformat()} UTC (initial after restart).")
             return
 
 
+=======
+            self.next_spawn = now + timedelta(minutes=random.randint(1, 2))
+            print(f"[Deal] Next spawn scheduled at {self.next_spawn.isoformat()} UTC (initial).")
+            return
+
+>>>>>>> 8f48a669246a2c7c9f9e4d09ba5385ee7c1a6989
         if now >= self.next_spawn:
             try:
                 await self._send_box_message()

@@ -71,6 +71,7 @@
                 "type": "tickets",
                 "amount": 7
             }
+<<<<<<< HEAD
         },
         {
             "user_id": 432138906989756417,
@@ -170,6 +171,8 @@
                 "type": "tickets",
                 "amount": 5
             }
+=======
+>>>>>>> 8f48a669246a2c7c9f9e4d09ba5385ee7c1a6989
         }
     ]
 }
